@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="arenaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Almacenamiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Peso" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="pallet" Type="int" />
+          <Property Name="FechaEntrada" Type="datetime2" Precision="7" />
+          <Property Name="FechaSalida" Type="datetime2" Precision="7" />
+          <Property Name="codigo" Type="varchar" MaxLength="200" />
+          <Property Name="posicion" Type="int" />
+        </EntityType>
+        <EntityType Name="Almacenamiento_Inicial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nivel" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Temperatura" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Estado" Type="bit" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="CentrifugadorCarga">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemperaturaAgua" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Conductividad" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Ph" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DurezaAgua" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Silice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fosfato" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Cribado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TamanoGrano" Type="int" />
+          <Property Name="Contaminacion" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="residuo" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="CribadoProceso2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tamanio" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Contaminación" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Residuo" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="InspeccionTamañoGrano">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TamanoGrano" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="InstpeccionConductividad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Conductividad" Type="int" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pesaje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Peso" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="PesajeFinal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="peso" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="posiciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="posicion" Type="int" />
+          <Property Name="nomenclatura" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="QuemadodeRecina">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TempInterna" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="TempExterna" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="TempArena" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="AireComprimido" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="SeparacionMagneticos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Contaminacion" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Particulas" Type="int" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="TanqueEnfriamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nivel" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Temperatura" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Estado" Type="bit" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="Triturado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TamañoGrano" Type="int" />
+          <Property Name="TiempoCiclo" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Contaminacion" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityContainer Name="arenaModelStoreContainer">
+          <EntitySet Name="Almacenamiento" EntityType="Self.Almacenamiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Almacenamiento_Inicial" EntityType="Self.Almacenamiento_Inicial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CentrifugadorCarga" EntityType="Self.CentrifugadorCarga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cribado" EntityType="Self.Cribado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CribadoProceso2" EntityType="Self.CribadoProceso2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InspeccionTamañoGrano" EntityType="Self.InspeccionTamañoGrano" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstpeccionConductividad" EntityType="Self.InstpeccionConductividad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pesaje" EntityType="Self.Pesaje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PesajeFinal" EntityType="Self.PesajeFinal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="posiciones" EntityType="Self.posiciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuemadodeRecina" EntityType="Self.QuemadodeRecina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeparacionMagneticos" EntityType="Self.SeparacionMagneticos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TanqueEnfriamento" EntityType="Self.TanqueEnfriamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Triturado" EntityType="Self.Triturado" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="arenaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Almacenamiento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Peso" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="pallet" Type="Int32" />
+          <Property Name="FechaEntrada" Type="DateTime" Precision="7" />
+          <Property Name="FechaSalida" Type="DateTime" Precision="7" />
+          <Property Name="codigo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="posicion" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Almacenamiento_Inicial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nivel" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Temperatura" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="CentrifugadorCarga">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TemperaturaAgua" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Conductividad" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Ph" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DurezaAgua" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Silice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fosfato" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Cribado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TamanoGrano" Type="Int32" />
+          <Property Name="Contaminacion" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="residuo" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="CribadoProceso2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tamanio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Contaminación" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Residuo" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="InspeccionTamañoGrano">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TamanoGrano" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="InstpeccionConductividad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Conductividad" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Pesaje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Peso" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="PesajeFinal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="peso" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="posiciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="posicion" Type="Int32" />
+          <Property Name="nomenclatura" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="QuemadodeRecina">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TempInterna" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TempExterna" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TempArena" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="AireComprimido" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="SeparacionMagneticos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Contaminacion" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Particulas" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="TanqueEnfriamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nivel" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Temperatura" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="Triturado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TamañoGrano" Type="Int32" />
+          <Property Name="TiempoCiclo" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Contaminacion" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityContainer Name="arenaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Almacenamiento" EntityType="Self.Almacenamiento" />
+          <EntitySet Name="Almacenamiento_Inicial" EntityType="Self.Almacenamiento_Inicial" />
+          <EntitySet Name="CentrifugadorCarga" EntityType="Self.CentrifugadorCarga" />
+          <EntitySet Name="Cribado" EntityType="Self.Cribado" />
+          <EntitySet Name="CribadoProceso2" EntityType="Self.CribadoProceso2" />
+          <EntitySet Name="InspeccionTamañoGrano" EntityType="Self.InspeccionTamañoGrano" />
+          <EntitySet Name="InstpeccionConductividad" EntityType="Self.InstpeccionConductividad" />
+          <EntitySet Name="Pesaje" EntityType="Self.Pesaje" />
+          <EntitySet Name="PesajeFinal" EntityType="Self.PesajeFinal" />
+          <EntitySet Name="posiciones" EntityType="Self.posiciones" />
+          <EntitySet Name="QuemadodeRecina" EntityType="Self.QuemadodeRecina" />
+          <EntitySet Name="SeparacionMagneticos" EntityType="Self.SeparacionMagneticos" />
+          <EntitySet Name="TanqueEnfriamento" EntityType="Self.TanqueEnfriamento" />
+          <EntitySet Name="Triturado" EntityType="Self.Triturado" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="arenaModelStoreContainer" CdmEntityContainer="arenaEntities">
+          <EntitySetMapping Name="Almacenamiento">
+            <EntityTypeMapping TypeName="arenaModel.Almacenamiento">
+              <MappingFragment StoreEntitySet="Almacenamiento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="pallet" ColumnName="pallet" />
+                <ScalarProperty Name="FechaEntrada" ColumnName="FechaEntrada" />
+                <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="posicion" ColumnName="posicion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Almacenamiento_Inicial">
+            <EntityTypeMapping TypeName="arenaModel.Almacenamiento_Inicial">
+              <MappingFragment StoreEntitySet="Almacenamiento_Inicial">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CentrifugadorCarga">
+            <EntityTypeMapping TypeName="arenaModel.CentrifugadorCarga">
+              <MappingFragment StoreEntitySet="CentrifugadorCarga">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TemperaturaAgua" ColumnName="TemperaturaAgua" />
+                <ScalarProperty Name="Conductividad" ColumnName="Conductividad" />
+                <ScalarProperty Name="Ph" ColumnName="Ph" />
+                <ScalarProperty Name="DurezaAgua" ColumnName="DurezaAgua" />
+                <ScalarProperty Name="Silice" ColumnName="Silice" />
+                <ScalarProperty Name="Fosfato" ColumnName="Fosfato" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cribado">
+            <EntityTypeMapping TypeName="arenaModel.Cribado">
+              <MappingFragment StoreEntitySet="Cribado">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TamanoGrano" ColumnName="TamanoGrano" />
+                <ScalarProperty Name="Contaminacion" ColumnName="Contaminacion" />
+                <ScalarProperty Name="residuo" ColumnName="residuo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CribadoProceso2">
+            <EntityTypeMapping TypeName="arenaModel.CribadoProceso2">
+              <MappingFragment StoreEntitySet="CribadoProceso2">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tamanio" ColumnName="Tamanio" />
+                <ScalarProperty Name="Contaminación" ColumnName="Contaminación" />
+                <ScalarProperty Name="Residuo" ColumnName="Residuo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InspeccionTamañoGrano">
+            <EntityTypeMapping TypeName="arenaModel.InspeccionTamañoGrano">
+              <MappingFragment StoreEntitySet="InspeccionTamañoGrano">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TamanoGrano" ColumnName="TamanoGrano" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InstpeccionConductividad">
+            <EntityTypeMapping TypeName="arenaModel.InstpeccionConductividad">
+              <MappingFragment StoreEntitySet="InstpeccionConductividad">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Conductividad" ColumnName="Conductividad" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pesaje">
+            <EntityTypeMapping TypeName="arenaModel.Pesaje">
+              <MappingFragment StoreEntitySet="Pesaje">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PesajeFinal">
+            <EntityTypeMapping TypeName="arenaModel.PesajeFinal">
+              <MappingFragment StoreEntitySet="PesajeFinal">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="peso" ColumnName="peso" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posiciones">
+            <EntityTypeMapping TypeName="arenaModel.posiciones">
+              <MappingFragment StoreEntitySet="posiciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="posicion" ColumnName="posicion" />
+                <ScalarProperty Name="nomenclatura" ColumnName="nomenclatura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuemadodeRecina">
+            <EntityTypeMapping TypeName="arenaModel.QuemadodeRecina">
+              <MappingFragment StoreEntitySet="QuemadodeRecina">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TempInterna" ColumnName="TempInterna" />
+                <ScalarProperty Name="TempExterna" ColumnName="TempExterna" />
+                <ScalarProperty Name="TempArena" ColumnName="TempArena" />
+                <ScalarProperty Name="AireComprimido" ColumnName="AireComprimido" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeparacionMagneticos">
+            <EntityTypeMapping TypeName="arenaModel.SeparacionMagneticos">
+              <MappingFragment StoreEntitySet="SeparacionMagneticos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Contaminacion" ColumnName="Contaminacion" />
+                <ScalarProperty Name="Particulas" ColumnName="Particulas" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TanqueEnfriamento">
+            <EntityTypeMapping TypeName="arenaModel.TanqueEnfriamento">
+              <MappingFragment StoreEntitySet="TanqueEnfriamento">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Triturado">
+            <EntityTypeMapping TypeName="arenaModel.Triturado">
+              <MappingFragment StoreEntitySet="Triturado">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TamañoGrano" ColumnName="TamañoGrano" />
+                <ScalarProperty Name="TiempoCiclo" ColumnName="TiempoCiclo" />
+                <ScalarProperty Name="Contaminacion" ColumnName="Contaminacion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

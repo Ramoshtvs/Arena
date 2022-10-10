@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="arenaModelStoreContainer" CdmEntityContainer="arenaEntities">
+    <EntitySetMapping Name="Almacenamiento">
+      <EntityTypeMapping TypeName="arenaModel.Almacenamiento">
+        <MappingFragment StoreEntitySet="Almacenamiento">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Peso" ColumnName="Peso" />
+          <ScalarProperty Name="pallet" ColumnName="pallet" />
+          <ScalarProperty Name="FechaEntrada" ColumnName="FechaEntrada" />
+          <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="posicion" ColumnName="posicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Almacenamiento_Inicial">
+      <EntityTypeMapping TypeName="arenaModel.Almacenamiento_Inicial">
+        <MappingFragment StoreEntitySet="Almacenamiento_Inicial">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+          <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CentrifugadorCarga">
+      <EntityTypeMapping TypeName="arenaModel.CentrifugadorCarga">
+        <MappingFragment StoreEntitySet="CentrifugadorCarga">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TemperaturaAgua" ColumnName="TemperaturaAgua" />
+          <ScalarProperty Name="Conductividad" ColumnName="Conductividad" />
+          <ScalarProperty Name="Ph" ColumnName="Ph" />
+          <ScalarProperty Name="DurezaAgua" ColumnName="DurezaAgua" />
+          <ScalarProperty Name="Silice" ColumnName="Silice" />
+          <ScalarProperty Name="Fosfato" ColumnName="Fosfato" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cribado">
+      <EntityTypeMapping TypeName="arenaModel.Cribado">
+        <MappingFragment StoreEntitySet="Cribado">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TamanoGrano" ColumnName="TamanoGrano" />
+          <ScalarProperty Name="Contaminacion" ColumnName="Contaminacion" />
+          <ScalarProperty Name="residuo" ColumnName="residuo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CribadoProceso2">
+      <EntityTypeMapping TypeName="arenaModel.CribadoProceso2">
+        <MappingFragment StoreEntitySet="CribadoProceso2">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Tamanio" ColumnName="Tamanio" />
+          <ScalarProperty Name="Contaminación" ColumnName="Contaminación" />
+          <ScalarProperty Name="Residuo" ColumnName="Residuo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InspeccionTamañoGrano">
+      <EntityTypeMapping TypeName="arenaModel.InspeccionTamañoGrano">
+        <MappingFragment StoreEntitySet="InspeccionTamañoGrano">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TamanoGrano" ColumnName="TamanoGrano" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstpeccionConductividad">
+      <EntityTypeMapping TypeName="arenaModel.InstpeccionConductividad">
+        <MappingFragment StoreEntitySet="InstpeccionConductividad">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Conductividad" ColumnName="Conductividad" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pesaje">
+      <EntityTypeMapping TypeName="arenaModel.Pesaje">
+        <MappingFragment StoreEntitySet="Pesaje">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Peso" ColumnName="Peso" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PesajeFinal">
+      <EntityTypeMapping TypeName="arenaModel.PesajeFinal">
+        <MappingFragment StoreEntitySet="PesajeFinal">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="peso" ColumnName="peso" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posiciones">
+      <EntityTypeMapping TypeName="arenaModel.posiciones">
+        <MappingFragment StoreEntitySet="posiciones">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="posicion" ColumnName="posicion" />
+          <ScalarProperty Name="nomenclatura" ColumnName="nomenclatura" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuemadodeRecina">
+      <EntityTypeMapping TypeName="arenaModel.QuemadodeRecina">
+        <MappingFragment StoreEntitySet="QuemadodeRecina">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TempInterna" ColumnName="TempInterna" />
+          <ScalarProperty Name="TempExterna" ColumnName="TempExterna" />
+          <ScalarProperty Name="TempArena" ColumnName="TempArena" />
+          <ScalarProperty Name="AireComprimido" ColumnName="AireComprimido" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeparacionMagneticos">
+      <EntityTypeMapping TypeName="arenaModel.SeparacionMagneticos">
+        <MappingFragment StoreEntitySet="SeparacionMagneticos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Contaminacion" ColumnName="Contaminacion" />
+          <ScalarProperty Name="Particulas" ColumnName="Particulas" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TanqueEnfriamento">
+      <EntityTypeMapping TypeName="arenaModel.TanqueEnfriamento">
+        <MappingFragment StoreEntitySet="TanqueEnfriamento">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+          <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Triturado">
+      <EntityTypeMapping TypeName="arenaModel.Triturado">
+        <MappingFragment StoreEntitySet="Triturado">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TamañoGrano" ColumnName="TamañoGrano" />
+          <ScalarProperty Name="TiempoCiclo" ColumnName="TiempoCiclo" />
+          <ScalarProperty Name="Contaminacion" ColumnName="Contaminacion" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

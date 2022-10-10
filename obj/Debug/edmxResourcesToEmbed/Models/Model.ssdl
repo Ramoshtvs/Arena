@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="arenaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Almacenamiento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Peso" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="pallet" Type="int" />
+    <Property Name="FechaEntrada" Type="datetime2" Precision="7" />
+    <Property Name="FechaSalida" Type="datetime2" Precision="7" />
+    <Property Name="codigo" Type="varchar" MaxLength="200" />
+    <Property Name="posicion" Type="int" />
+  </EntityType>
+  <EntityType Name="Almacenamiento_Inicial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nivel" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Temperatura" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Estado" Type="bit" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="CentrifugadorCarga">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TemperaturaAgua" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Conductividad" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Ph" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="DurezaAgua" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Silice" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fosfato" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="Cribado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TamanoGrano" Type="int" />
+    <Property Name="Contaminacion" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="residuo" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="CribadoProceso2">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tamanio" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Contaminación" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Residuo" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="InspeccionTamañoGrano">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TamanoGrano" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="InstpeccionConductividad">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Conductividad" Type="int" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="Pesaje">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Peso" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="PesajeFinal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="peso" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="posiciones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="posicion" Type="int" />
+    <Property Name="nomenclatura" Type="varchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="QuemadodeRecina">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TempInterna" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="TempExterna" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="TempArena" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="AireComprimido" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="SeparacionMagneticos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Contaminacion" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Particulas" Type="int" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="TanqueEnfriamento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nivel" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Temperatura" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Estado" Type="bit" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="Triturado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TamañoGrano" Type="int" />
+    <Property Name="TiempoCiclo" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Contaminacion" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityContainer Name="arenaModelStoreContainer">
+    <EntitySet Name="Almacenamiento" EntityType="Self.Almacenamiento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Almacenamiento_Inicial" EntityType="Self.Almacenamiento_Inicial" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CentrifugadorCarga" EntityType="Self.CentrifugadorCarga" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cribado" EntityType="Self.Cribado" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CribadoProceso2" EntityType="Self.CribadoProceso2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InspeccionTamañoGrano" EntityType="Self.InspeccionTamañoGrano" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InstpeccionConductividad" EntityType="Self.InstpeccionConductividad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pesaje" EntityType="Self.Pesaje" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PesajeFinal" EntityType="Self.PesajeFinal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="posiciones" EntityType="Self.posiciones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuemadodeRecina" EntityType="Self.QuemadodeRecina" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeparacionMagneticos" EntityType="Self.SeparacionMagneticos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TanqueEnfriamento" EntityType="Self.TanqueEnfriamento" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Triturado" EntityType="Self.Triturado" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

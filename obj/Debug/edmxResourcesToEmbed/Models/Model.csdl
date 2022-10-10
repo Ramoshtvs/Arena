@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="arenaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Almacenamiento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Peso" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="pallet" Type="Int32" />
+    <Property Name="FechaEntrada" Type="DateTime" Precision="7" />
+    <Property Name="FechaSalida" Type="DateTime" Precision="7" />
+    <Property Name="codigo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="posicion" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Almacenamiento_Inicial">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nivel" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Temperatura" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="CentrifugadorCarga">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TemperaturaAgua" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Conductividad" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Ph" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="DurezaAgua" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Silice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fosfato" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="Cribado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TamanoGrano" Type="Int32" />
+    <Property Name="Contaminacion" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="residuo" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="CribadoProceso2">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tamanio" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Contaminación" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Residuo" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="InspeccionTamañoGrano">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TamanoGrano" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="InstpeccionConductividad">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Conductividad" Type="Int32" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="Pesaje">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Peso" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="PesajeFinal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="peso" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="posiciones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="posicion" Type="Int32" />
+    <Property Name="nomenclatura" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="QuemadodeRecina">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TempInterna" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="TempExterna" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="TempArena" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="AireComprimido" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="SeparacionMagneticos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Contaminacion" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Particulas" Type="Int32" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="TanqueEnfriamento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nivel" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Temperatura" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Estado" Type="Boolean" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="Triturado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TamañoGrano" Type="Int32" />
+    <Property Name="TiempoCiclo" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Contaminacion" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Fecha" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityContainer Name="arenaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Almacenamiento" EntityType="Self.Almacenamiento" />
+    <EntitySet Name="Almacenamiento_Inicial" EntityType="Self.Almacenamiento_Inicial" />
+    <EntitySet Name="CentrifugadorCarga" EntityType="Self.CentrifugadorCarga" />
+    <EntitySet Name="Cribado" EntityType="Self.Cribado" />
+    <EntitySet Name="CribadoProceso2" EntityType="Self.CribadoProceso2" />
+    <EntitySet Name="InspeccionTamañoGrano" EntityType="Self.InspeccionTamañoGrano" />
+    <EntitySet Name="InstpeccionConductividad" EntityType="Self.InstpeccionConductividad" />
+    <EntitySet Name="Pesaje" EntityType="Self.Pesaje" />
+    <EntitySet Name="PesajeFinal" EntityType="Self.PesajeFinal" />
+    <EntitySet Name="posiciones" EntityType="Self.posiciones" />
+    <EntitySet Name="QuemadodeRecina" EntityType="Self.QuemadodeRecina" />
+    <EntitySet Name="SeparacionMagneticos" EntityType="Self.SeparacionMagneticos" />
+    <EntitySet Name="TanqueEnfriamento" EntityType="Self.TanqueEnfriamento" />
+    <EntitySet Name="Triturado" EntityType="Self.Triturado" />
+  </EntityContainer>
+</Schema>
