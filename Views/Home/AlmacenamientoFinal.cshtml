@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "AlmacenamientoFinal";
+}
+
+
+<script src="~/Scripts/chartjs/Chart.min.js"></script>
+<script src="~/Scripts/chartjs/chart.js"></script>
+<script src="~/Scripts/chart.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<script src="~/Estilos table jquery/jquery-2.1.1.min.js"></script>
+
+<script src="~/Estilos table jquery/jszip.min.js"></script>
+<script src="~/Estilos table jquery/pdfmake.min.js"></script>
+<script src="~/Estilos table jquery/vfs_fonts.js"></script>
+
+<script src="~/Estilos table jquery/jquery.dataTables.min.js"></script>
+
+<link href="~/Estilos table jquery/buttons.dataTables.min.css" rel="stylesheet" />
+<link href="~/Estilos table jquery/jquery.dataTables.min.css" rel="stylesheet" />
+
+<h4 style="font-size: 35px; text-align: center; font-family: 'Lucida Bright'; padding-top:52px">Almacenamiento</h4>
+<div class="row responsive" style="padding-top:10px">
+   
+    <div class="col-lg-5 card">
+        <div class="panel panel-default" style="width: auto; height: 100%">
+            <div class="panel-body">
+                <canvas id="myChars"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-7">
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+
+            <div class="col-md-6">
+
+                <h2 id="lblTamaño" style="color:black;"></h2>
+
+            </div>
+        </div>
+
+        <div>
+            <table id="tblAlmacenamiento" class="table table-striped">
+                <thead>
+                    <tr>
+
+                        <th>PESO</th>
+                        <th>PALLET</th>
+                        <th>FECHA ENTRADA</th>
+                        <th>FECHA SALIDA</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+
+        var lista = document.getElementsByClassName("checks");
+        var contrilPie = document.getElementById("myChars");
+
+        setInterval("chart()", 1000000);
+        let grafPie = null;
+        window.onload = chart;
+            function chart() {
+
+            var colors = ['#3366CC', '#DC3912', '#FF9900', '#109618', '#990099', '#3B3EAC',
+                '#0099C6', '#DD4477', '#66AA00', '#B82E2E', '#316395', '#994499', '#22AA99',
+                '#AAAA11', '#6633CC', '#E67300', '#8B0707', '#329262', '#5574A6', '#3B3EAC',
+                '#0000FF', '#800080','#FF0000','#288BA8','#E389B9'];
+
+            var rd = {};
+            rd.Fecha = 0;
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AlmacenamientoFinal")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType: "application/json; chartset=uft-8",
+                success: function (Response) {
+
+                    if (Response != null) {
+
+                        $(document).ready(function () {
+                            $.noConflict();
+                            $('#tblAlmacenamiento').DataTable()
+
+                        });
+                        $("#lblTamaño").html("Total: "+Response.VarAlmacenamientoF+" KG");
+
+
+                        if (grafPie != null) {
+                            grafPie.destroy();
+                        }
+                         grafPie = new Chart(contrilPie, {
+                            type: 'pie',
+                            data: {
+                                labels: Response.lstpallet,
+                                datasets: [{
+                                    data: Response.lstAlmacenamientoF,
+                                    backgroundColor: colors
+                                }],
+                            },
+                        });
+
+                        var items = Response.lstAlmacenamiento;
+
+
+                        $("#tblAlmacenamiento > tbody").empty();
+
+                        $.each(items, function (index, value) {
+                            $("#tblAlmacenamiento")
+                                .append(
+                                    "<tr>"
+                                    + "<td>" + value.Pallet + "</td>"
+                                    + "<td> " + value.Peso + "</td>"                                    
+                                    + "<td>" + value.Fecha + "</td>"
+                                    + "<td> " + value.FechaSalida + "</td>"
+                                    +"</tr > "
+                                );
+
+                        });
+
+                    } else {
+                        alert('NO ENTRO');
+                    }
+
+                }
+
+            });
+        }
+
+
+
+    </script>
+}
+

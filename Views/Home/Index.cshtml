@@ -86,7 +86,7 @@
             </div>
 
             <div class="card-body" style=" text-align: -webkit-center;">
-                <div style="height:271px; width:200px;">
+                <div style="height:271px; width:200px;"  onclick="Falma()">
                     <div style="padding:0; ">
                         <div id="nivel" class="level" style="margin:0;">
                             <img src="~/Imagen/Sin título-1.png" alt="frase mamalona" style="height:auto; width:100%;" />
@@ -302,16 +302,17 @@
                                 scrollablePlotArea: {
                                     minWidth: 600
                                  },
-                                click: function () {
-                                        var url = '@Url.Action("triturado","Home")';
-                                        window.location.href = url;
-                                    },
+
                                 events: {
                                         load: function () {
                                             series2 = this.series[0];
 
-                                        }
+                                    },
+                                    click: function () {
+                                        var url = '@Url.Action("triturado","Home")';
+                                        window.location.href = url;
                                     }
+                                }
 
                             },
                             title: {
@@ -427,11 +428,10 @@
                             chart: {
                                 type: 'solidgauge',
                                 events: {
-                                    @*click: function () {
+                                    click: function () {
                                         var url = '@Url.Action("almacenamiento", "Home")';
                                         window.location.href = url;
-                                    }*@
-
+                                    },
                                     load: function () {
                                             series4 = this.series[0];
 
@@ -620,6 +620,11 @@
                 },
             });
 
+    }
+
+    function Falma() {
+        var url = '@Url.Action("almacenamiento", "Home")';
+        window.location.href = url;
     }
 
 </script>

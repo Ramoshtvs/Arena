@@ -207,6 +207,16 @@
     <Content Include="Content\StyleArena\ProgressTemp.css" />
     <Content Include="Content\StyleArena\smartdefault.css" />
     <Content Include="Content\StyleArena\switch.css" />
+    <Content Include="Estilos table jquery\buttons.dataTables.min.css" />
+    <Content Include="Estilos table jquery\buttons.html5.min.js" />
+    <Content Include="Estilos table jquery\buttons.print.min.js" />
+    <Content Include="Estilos table jquery\dataTables.buttons.min.js" />
+    <Content Include="Estilos table jquery\jquery-2.1.1.min.js" />
+    <Content Include="Estilos table jquery\jquery.dataTables.min.css" />
+    <Content Include="Estilos table jquery\jquery.dataTables.min.js" />
+    <Content Include="Estilos table jquery\jszip.min.js" />
+    <Content Include="Estilos table jquery\pdfmake.min.js" />
+    <Content Include="Estilos table jquery\vfs_fonts.js" />
     <Content Include="favicon.ico" />
     <Content Include="fontawesome-free-6.1.2-web\css\all.css" />
     <Content Include="fontawesome-free-6.1.2-web\css\all.min.css" />
@@ -2343,6 +2353,8 @@
     <Content Include="fontawesome-free-6.1.2-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="fontawesome-free-6.1.2-web\webfonts\fa-v4compatibility.woff2" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chart.min.js" />
     <Content Include="Scripts\chartjs\chart.js" />
     <Content Include="Scripts\chartjs\Chart.min.js" />
     <Content Include="Scripts\Highcharts\accessibility.js" />
@@ -2390,6 +2402,14 @@
     <Content Include="Views\Home\Cribado.cshtml" />
     <Content Include="Views\Home\separacionMagneticos.cshtml" />
     <Content Include="Views\Home\SentrifugadodeCargas.cshtml" />
+    <Content Include="Views\Home\InspeccionTamañoGrano.cshtml" />
+    <Content Include="Views\Home\QuemadoResina.cshtml" />
+    <Content Include="Views\Home\TanqueEnfriamento.cshtml" />
+    <Content Include="Views\Home\CribadoProceso2.cshtml" />
+    <Content Include="Views\Home\InstpeccionConductividad.cshtml" />
+    <Content Include="Views\Home\PesajeFinalDiario.cshtml" />
+    <Content Include="Views\Home\AlmacenamientoS.cshtml" />
+    <Content Include="Views\Home\AlmacenamientoFinal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

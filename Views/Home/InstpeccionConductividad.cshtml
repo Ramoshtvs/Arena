@@ -1,0 +1,236 @@
+﻿
+@{
+    ViewBag.Title = "InstpeccionConductividad";
+}
+
+<script src="~/Scripts/Highcharts/highcharts.js"></script>
+<script src="~/Scripts/Highcharts/exporting.js"></script>
+<script src="~/Scripts/Highcharts/export-data.js"></script>
+<script src="~/Scripts/Highcharts/accessibility.js"></script>
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+
+<div class="row" style="padding-top:51px">
+    <div class="col-lg-8" style="text-align:end">
+        
+        <h4 style="font-size: 35px; text-align: end; font-family: 'Lucida Bright'">Inspeccion de Conductividad</h4>
+    </div>
+
+    <div class="col-lg-3" style="text-align:end; padding-top:5px">
+        <input id="fecha" type="date" onchange="chart()" style="font-size: 16px;  width:200px; height:40px; text-transform: uppercase; font-weight:bold;" />
+    </div>
+</div>
+
+<div class="row responsive">
+    <figure class="highcharts-figure">
+        <div id="GrafConductividad"></div>
+    </figure>
+</div>
+
+
+<script>
+    //setInterval("chart()", 10000);
+    window.onload = time;
+    function time() {
+        var now = new Date();
+        var day = ("0" + (now.getDate())).slice(-2);
+        var mes = ("0" + (now.getMonth() + 1)).slice(-2);
+        var year = now.getFullYear();
+        $("#fecha").val(year + "-" + mes + "-" + day);
+        chart()
+    }
+
+    function chart() {
+
+        var rd = {};
+        rd.Fecha = $("#fecha").val();
+
+        var actual = new Date();
+        var daia = ("0" + (actual.getDate())).slice(-2);
+        var mese = ("0" + (actual.getMonth() + 1)).slice(-2);
+        var anio = actual.getFullYear();
+        var fechaActual = anio + "-" + mese + "-" + daia;
+
+           $.ajax({
+                type:"POST",
+                url: '@Url.Action("InstpeccionConductividad")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType:"application/json; chartset=uft-8",
+               success: function (Response) {
+                   if (Response != null) {
+
+                       if (rd.Fecha == fechaActual) {
+                           Highcharts.chart('GrafConductividad', {
+                               chart: {
+                                   backgroundColor: 'transparent',
+                                   events: {
+                                       load: function () {
+                                           var series = this.series[0];
+                                           var series1 = this.series[1];
+                                           setInterval(
+                                               function barra() {
+                                                   var rd = {};
+                                                   rd.Fecha = $("#fecha").val();
+                                                   $.ajax({
+                                                       type: "POST",
+                                                       url: '@Url.Action("ValidarPuntoIC")',
+                                                       data: '{rd: ' + JSON.stringify(rd) + '}',
+                                                       dataType: "json",
+                                                       contentType: "application/json; chartset=uft-8",
+                                                       success: function (Responses) {
+                                                           if (Responses != null) {
+                                                               if (Responses.VaraddConductividad > 0) {
+
+                                                                   var x = Responses.VaraddFechaCond,
+                                                                       y = Responses.VaraddConductividad,
+                                                                       z = 500;
+
+                                                                   series.addPoint([x, y]);
+                                                                   series1.addPoint([x, z]);
+
+                                                               }
+                                                           }
+                                                       },
+                                                   });
+                                               }, 5000);
+                                       }
+                                   }
+                               }
+                               ,
+                               title: {
+                                   text: 'Conductividad'
+                               },
+                               xAxis: {
+
+                                   type: 'category',
+                                   labels: {
+                                       rotation: 45,
+                                       style: { color: 'Black' }
+                                   }
+                               },
+                               yAxis: {
+                                   title: {
+                                       text: 'Conductividad',
+                                       style: {
+                                           color: 'black'
+                                       }
+                                   },
+                                   labels: {
+                                       text: 'Fecha',
+                                       style: {
+                                           color: 'black'
+                                       }
+                                   }
+
+                               },
+
+                               credits: {
+                                   enabled: false
+                               },
+
+                               series: [{
+                                   pointStart: 1,
+                                   name: 'Conductividad μS',
+                                   tooltip: { valueSuffix: ' μS' },
+                                   color: '#00FF04',
+                                   data: (function () {
+                                       var data = [],
+                                           dat = Response.lstConductividad,
+                                           fec = Response.lstFechaCond;
+
+                                       for (var i = 0; i < dat.length; i++) {
+
+                                           data.push({
+                                               name: fec[i],
+                                               y: dat[i]
+                                           });
+
+                                       }
+                                       return data;
+                                   }())
+
+                               }, {
+                                   data: (function () {
+                                       var data = [],
+                                           dat = Response.lstMaxConductividad,
+                                           fec = Response.lstFechaCond;
+
+                                       for (var i = 0; i < dat.length; i++) {
+
+                                           data.push({
+                                               name: fec[i],
+                                               y: dat[i]
+                                           });
+
+                                       }
+                                       return data;
+                                   }()),
+                                   pointStart: 1,
+                                   name: 'Max Conductividad',
+                                   tooltip: { valueSuffix: ' μS' },
+                                   color: '#ff0000'
+                               }]
+                           });
+                       } else {
+                           Highcharts.chart('GrafConductividad', {
+
+                               title: {
+                                   text: 'Conductividad'
+                               },
+                               xAxis: {
+                                   categories: Response.lstFechaCondL,
+                                   labels: {
+                                       rotation: -45,
+                                       style: { color: 'Black' }
+                                   }
+                               },
+                               chart: {
+                                   backgroundColor: 'transparent'
+                               }
+                               ,
+
+                               yAxis: {
+                                   title: {
+                                       text: 'Conductividad',
+                                       style: {
+                                           color: 'black'
+                                       }
+                                   },
+                                   labels: {
+                                       text: 'Fecha',
+                                       style: {
+                                           color: 'black'
+                                       }
+                                   }
+                               },
+
+                               credits: {
+                                   enabled: false
+                               },
+
+                               series: [{
+                                   data: Response.lstConductividad,
+                                   pointStart: 1,
+                                   name: 'Conductividad μS',
+                                   tooltip: { valueSuffix: ' μS' },
+                                   color: '#00FF04'
+                               }, {
+                                   data: Response.lstMaxConductividad,
+                                   pointStart: 1,
+                                   name: 'Max Conductividad',
+                                   tooltip: { valueSuffix: ' μS' },
+                                   color: '#ff0000'
+                               }]
+                           });
+                       }
+
+                   } else {
+
+                       alert('NULO');
+                   }
+               },
+           });
+    }
+</script>
