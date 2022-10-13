@@ -1,0 +1,282 @@
+﻿
+@{
+    ViewBag.Title = "QuemadoResina";
+}
+
+<script src="~/Scripts/Highcharts/highcharts.js"></script>
+<script src="~/Scripts/Highcharts/exporting.js"></script>
+<script src="~/Scripts/Highcharts/export-data.js"></script>
+<script src="~/Scripts/Highcharts/accessibility.js"></script>
+
+<link href="~/fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+
+<div class="row responisve" style="padding-top:51px">
+    <div class=" card col-md-2" style="width: 250px; height: auto; word-wrap: break-word;">
+        <div class="card-header">
+            <a><i class="fa-solid fa-laptop-code"></i> DATOS</a>
+        </div>
+
+        <div class="card-body">
+            <h4> Temperatura Interna:</h4>
+            <h5 id="lblTempInterna"> </h5>
+         
+            <h4 style="padding-top:5px"> Temperatura Externa:</h4>
+            <h5 id="lblTempExterna"> </h5>
+            
+            <h4 style="padding-top:5px"> Temperatura De La Arena:</h4>
+            <h5 id="lblTempArena"> </h5>
+            
+            <h4 style="padding-top:5px">Aire Comprimido:</h4>
+            <h5 id="lblAire"> </h5>
+            
+            <h4 style="padding-top:5px">Fecha Y Hora:</h4>
+            <h5 id="lblFecha" style="font-size: medium" "> </h5>
+        </div>
+    </div>
+
+    <div class="col-lg-9" style="padding-top: 10px">
+
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-7" style="text-align:center">
+                <h4 style="font-size: 35px;font-family: 'Lucida Bright'">Quemado De Resina</h4>
+            </div>
+            <div class="col-lg-3" style="text-align: end; padding-top:5px">
+                <input id="fecha" type="date" onchange="chart()" style="font-size: 16px;  width:200px; height:40px; text-transform: uppercase; font-weight:bold;" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <figure class="highcharts-figure">
+                    <div id="GrafQuemadoR" style="height:100%; width:auto"></div>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+   // setInterval("chart()", 10000);
+    window.onload = time;
+    function time() {
+        var now = new Date();
+        var day = ("0" + (now.getDate())).slice(-2);
+        var mes = ("0" + (now.getMonth() + 1)).slice(-2);
+        var year = now.getFullYear();
+        $("#fecha").val(year + "-" + mes + "-" + day);
+        chart()
+    }
+
+    function chart() {
+
+        var rd = {};
+        rd.Fecha = $("#fecha").val();
+
+        var actual = new Date();
+        var daia = ("0" + (actual.getDate())).slice(-2);
+        var mese = ("0" + (actual.getMonth() + 1)).slice(-2);
+        var anio = actual.getFullYear();
+        var fechaActual = anio + "-" + mese + "-" + daia;
+
+           $.ajax({
+                type:"POST",
+                url: '@Url.Action("QuemadoResina")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType:"application/json; chartset=uft-8",
+               success: function (Response) {
+                   $("#lblTempInterna").html(Response.VarTempInternaQR + " °C");
+                   $("#lblTempExterna").html(Response.VarTempExternaQR + " °C");
+                   $("#lblTempArena").html(Response.VarTempArenaQR + " °C");
+                   $("#lblAire").html(Response.VarCalibracionQR + " hp");
+                   $("#lblFecha").html(Response.VarFechaQR);
+
+                   if (Response != null) {
+                       if (rd.Fecha == fechaActual) {
+                           Highcharts.chart('GrafQuemadoR', {
+                               chart: {
+                                   type: 'line',
+                                   events: {
+                                       load: function () {
+                                           var series = this.series[0];
+                                           var series1 = this.series[1];
+                                           var series2 = this.series[2];
+                                           setInterval(
+                                               function punto() {
+                                                   var rd = {};
+                                                   rd.Fecha = $("#fecha").val();
+                                                   $.ajax({
+                                                       type: "POST",
+                                                       url: '@Url.Action("ValidarPuntoQR")',
+                                                       data: '{rd: ' + JSON.stringify(rd) + '}',
+                                                       dataType: "json",
+                                                       contentType: "application/json; chartset=uft-8",
+                                                       success: function (Responses) {
+                                                           if (Responses != null) {
+                                                               if (Responses.VaraddTemArena > 0) {
+                                                                   var x = Responses.VaraddFecha,
+                                                                       y = Responses.VaraddTemArena,
+                                                                       w = Responses.VaraddTemExt,
+                                                                       z = Responses.VaraddTemInt;
+
+                                                                   series.addPoint([x, z]);
+                                                                   series1.addPoint([x, w]);
+                                                                   series2.addPoint([x, y]);
+
+                                                                   $("#lblTempInterna").html(Responses.VaraddTemInt + " °C");
+                                                                   $("#lblTempExterna").html(Responses.VaraddTemExt + " °C");
+                                                                   $("#lblTempArena").html(Responses.VaraddTemArena + " °C");
+                                                                   $("#lblAire").html(Responses.VarCalibracionQR + " hp");
+                                                                   $("#lblFecha").html(Responses.VarFechaQR);
+
+                                                               }
+                                                           }
+                                                       },
+                                                   });
+                                               }, 5000);
+                                       }
+                                   }
+                               },
+                               title: {
+                                   text: 'Temperatura'
+                               },
+                               credits: {
+                                   enabled: false
+                               },
+                               xAxis: {
+
+                                   type: 'category',
+                                   labels: {
+                                       rotation: 40,
+                                       style: { color: 'Black' }
+                                   }
+                               },
+                               yAxis: {
+                                   title: {
+                                       text: 'Temperatura (°C)'
+                                   }
+                               },
+                               plotOptions: {
+                                   line: {
+                                       dataLabels: {
+                                           enabled: true
+                                       },
+                                       enableMouseTracking: false
+                                   }
+                               }, series: [
+                                   {
+                                       name: 'Temperatura Interna',
+                                       data: (function () {
+
+                                           var data = [],
+                                               dat = Response.lstTempInternaQR,
+                                               fec = Response.lstFechaQR;
+
+                                           for (var i = 0; i < dat.length; i++) {
+
+                                               data.push({
+                                                   name: fec[i],
+                                                   y: dat[i]
+                                               });
+
+                                           }
+                                           return data;
+                                       }())
+                                   }, {
+                                       name: 'Temperatura Externa',
+                                       data: (function () {
+
+                                           var data = [],
+                                               dat = Response.lstTempExternaQR;
+
+                                           for (var i = 0; i < dat.length; i++) {
+
+                                               data.push({
+                                                   y: dat[i]
+                                               });
+
+                                           }
+                                           return data;
+                                       }())
+                                   }, {
+                                       name: 'Temperatura Arena',
+                                       data: (function () {
+
+                                           var data = [],
+                                               dat = Response.lstTempArenaQR;
+
+                                           for (var i = 0; i < dat.length; i++) {
+
+                                               data.push({
+                                                   y: dat[i]
+                                               });
+
+                                           }
+                                           return data;
+                                       }())
+                                   }
+                               ]
+
+                           });
+                       } else {
+                           Highcharts.chart('GrafQuemadoR', {
+                               chart: {
+                                   type: 'line'
+                               },
+                               title: {
+                                   text: 'Temperatura'
+                               },
+                               credits: {
+                                   enabled: false
+                               },
+                               xAxis: {
+                                   categories: Response.lstFechaQRL,
+                                   labels: {
+                                       rotation: 45,
+                                       style: { color: 'Black' }
+                                   }
+                               },
+                               yAxis: {
+                                   title: {
+                                       text: 'Temperatura (°C)'
+                                   }
+                               },
+                               plotOptions: {
+                                   line: {
+                                       dataLabels: {
+                                           enabled: true
+                                       },
+                                       enableMouseTracking: false
+                                   }
+                               }, series: [
+                                   {
+                                       name: 'Temperatura Interna',
+                                       data: Response.lstTempInternaQR
+                                   }, {
+                                       name: 'Temperatura Externa',
+                                       data: Response.lstTempExternaQR
+                                   }, {
+                                       name: 'Temperatura Arena',
+                                       data: Response.lstTempArenaQR
+                                   }
+                               ]
+
+                           });
+                       }
+                   } else {
+                       alert('NULO');
+
+                   }
+               },
+           });
+    }
+</script>
+
+
+
+

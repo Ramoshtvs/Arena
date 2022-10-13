@@ -76,7 +76,7 @@
 
 
 <script>
-
+   
     window.onload = time;
     function time() {
         var now = new Date();
@@ -117,7 +117,8 @@
      var daia = ("0" + (actual.getDate())).slice(-2);
      var mese = ("0" + (actual.getMonth() + 1)).slice(-2);
      var anio = actual.getFullYear();
-     var fechaActual=anio + "-" + mese + "-" + daia;
+     var fechaActual = anio + "-" + mese + "-" + daia;
+     
 
 
         var rd = {};
@@ -321,7 +322,37 @@
 
                         Highcharts.chart('GrafBarras', {
                             chart: {
-                                type: 'column'
+                                type: 'column',
+                                 events: {
+                                        load: function () {
+                                            var series = this.series[0];
+                                            setInterval(
+                                                function punto() {
+                                                    var rd = {};
+                                                    rd.Fecha = 0;
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: '@Url.Action("ValidaPesajeMensual")',
+                                                        data: '{rd: ' + JSON.stringify(rd) + '}',
+                                                        dataType: "json",
+                                                        contentType: "application/json; chartset=uft-8",
+                                                        success: function (Responses) {
+                                                            if (Responses != null) {                                                              
+
+                                                                if (Responses.UpdateMensual > 0) {
+                                                                    var y = Responses.totalMonth;
+                                                                    var update = Responses.UpdateMensual;
+                                                                    var y = y + update;
+                                                                        mes = Responses.mes-1;
+                                                                 
+                                                                    series.data[mes].update(y);
+                                                                }
+                                                            }
+                                                        },
+                                                    });
+                                                }, 1000);
+                                        }
+                                    }
                             },
                             title: {
                                 text: ''

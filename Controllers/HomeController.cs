@@ -423,15 +423,19 @@ namespace Arena.Controllers{
         [HttpPost]
         public ActionResult pesajeMensual(Pesaje rd)
         {
+            VariablesContador.contadorPesajeMensual = 0;
             variables objvariables = new variables();
             List<decimal> listPeso = new List<decimal>();
             List<string> listFecha = new List<string>();
-
+            DateTime fecha = DateTime.Now;
             decimal to = 0;
             //DateTime fecha = Convert.ToDateTime(rd.Fecha);
             //var fechaf = Convert.ToDateTime(fecha.ToString("yyyy-MM-dd 23:59:59"));
             int[] mes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-            var total = db.Pesaje.Where(x => x.Fecha.Value.Year == rd.Fecha.Value.Year).ToList();
+            var total = db.Pesaje.Where(x => x.Fecha.Value.Year == rd.Fecha.Value.Year).ToList();          
+
+            var dataMonth = db.Pesaje.Where(x => x.Fecha.Value.Month == fecha.Month).ToList();
+            VariablesContador.contadorPesajeMensual = dataMonth.Count;
 
             listFecha.Add("");
             foreach (var item in mes)
@@ -453,6 +457,34 @@ namespace Arena.Controllers{
             return Json(objvariables, JsonRequestBehavior.AllowGet);
 
 
+        }
+        [HttpPost]
+        public ActionResult ValidaPesajeMensual(Pesaje rd)
+        {
+            variables objvariables = new variables();
+            DateTime fecha = DateTime.Now;
+
+            var dataMonth = db.Pesaje.Where(x => x.Fecha.Value.Month == fecha.Month).ToList();
+            decimal totalMonth = 0;
+
+            foreach (var item in dataMonth)
+            {
+                totalMonth += Convert.ToDecimal(item.Peso);
+            }
+            int i = dataMonth.Count;
+
+            if (i > VariablesContador.contadorPesajeMensual)
+            {
+                VariablesContador.contadorPesajeMensual = i;
+                var data = dataMonth.OrderByDescending(x => x.Id).FirstOrDefault();
+
+                objvariables.UpdateMensual = Convert.ToDecimal(data.Peso);
+                objvariables.mes = Convert.ToInt32(fecha.Month);
+                objvariables.totalMonth = totalMonth;
+
+            }           
+
+            return Json(objvariables, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult almacenamiento(Almacenamiento_Inicial rd)
@@ -1148,18 +1180,17 @@ namespace Arena.Controllers{
         {
             if (actualizar != null)
             {
-
                 for (int i = 0; i < actualizar.Length; i++)
                 {
                     if (actualizar[i] != null)
                     {
                         ViewBag.RowsAffected = db.Database.ExecuteSqlCommand("UPDATE Almacenamiento SET FechaSalida = CURRENT_TIMESTAMP WHERE codigo='" + actualizar[i] + "'");
-
+                        //int w = ViewBag.RowsAffected;
                     }
                 }
             }
 
-            return Json(actualizar);
+            return Json(actualizar, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult AlmacenamientoS(Almacenamiento rd)
@@ -1196,6 +1227,9 @@ namespace Arena.Controllers{
             public string VarFechaPeso { get; set; }
             //1-Mensual
             public List<decimal> pesoMensual { get; set; }
+            public decimal UpdateMensual { get; set; }
+            public decimal totalMonth{ get; set; }
+            public int mes { get; set; }
             //2 page
             public decimal Nivel { get; set; }
             public decimal temAlmacenamiento { get; set; }

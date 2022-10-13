@@ -32,6 +32,8 @@ C:\Users\Ramos\source\repos\Arena\bin\roslyn\vbc.rsp
 C:\Users\Ramos\source\repos\Arena\bin\roslyn\VBCSCompiler.exe
 C:\Users\Ramos\source\repos\Arena\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Ramos\source\repos\Arena\bin\Antlr3.Runtime.dll
+C:\Users\Ramos\source\repos\Arena\bin\EntityFramework.dll
+C:\Users\Ramos\source\repos\Arena\bin\EntityFramework.SqlServer.dll
 C:\Users\Ramos\source\repos\Arena\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Ramos\source\repos\Arena\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Ramos\source\repos\Arena\bin\Newtonsoft.Json.dll
@@ -43,6 +45,8 @@ C:\Users\Ramos\source\repos\Arena\bin\System.Web.WebPages.Deployment.dll
 C:\Users\Ramos\source\repos\Arena\bin\System.Web.WebPages.dll
 C:\Users\Ramos\source\repos\Arena\bin\System.Web.WebPages.Razor.dll
 C:\Users\Ramos\source\repos\Arena\bin\WebGrease.dll
+C:\Users\Ramos\source\repos\Arena\bin\EntityFramework.xml
+C:\Users\Ramos\source\repos\Arena\bin\EntityFramework.SqlServer.xml
 C:\Users\Ramos\source\repos\Arena\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Ramos\source\repos\Arena\bin\Newtonsoft.Json.xml
 C:\Users\Ramos\source\repos\Arena\bin\System.Web.Helpers.xml
@@ -65,7 +69,3 @@ C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.csproj.CoreCompileInputs.cache
 C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.csproj.CopyComplete
 C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.dll
 C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.pdb
-C:\Users\Ramos\source\repos\Arena\bin\EntityFramework.dll
-C:\Users\Ramos\source\repos\Arena\bin\EntityFramework.SqlServer.dll
-C:\Users\Ramos\source\repos\Arena\bin\EntityFramework.xml
-C:\Users\Ramos\source\repos\Arena\bin\EntityFramework.SqlServer.xml

@@ -1,0 +1,308 @@
+﻿
+@{
+    ViewBag.Title = "almacenamiento";
+}
+
+<script src="~/Scripts/Highcharts/highcharts.js"></script>
+<script src="~/Scripts/Highcharts/highcharts-more.js"></script>
+<script src="~/Scripts/Highcharts/solid-gauge.js"></script>
+<script src="~/Scripts/Highcharts/exporting.js"></script>
+<script src="~/Scripts/Highcharts/export-data.js"></script>
+<script src="~/Scripts/Highcharts/accessibility.js"></script>
+
+
+<link href="~/Content/StyleArena/progressBarr.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<div class="row responsive" style="padding-top:51px">
+    <section style="width: 95%; margin-top: 5px; margin-left: 1%; box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+        <!-- div del tanque -->
+        <div class="row">
+            <div class="card col-lg-6 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+
+                <div class="card-header">
+                    <h6 style="color:black; text-align-last:center">Tanque De Almacenamiento</h6>
+                </div>
+
+                <div class="card-body">
+                    <div style="padding:0; margin-right:30px">
+                        <div id="nivel" class="level" style="margin:0;">
+                            <img src="~/Imagen/Sin título-1.png" alt="frase mamalona" style="height:40%; width:auto;" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row col-lg-6 ">
+
+                <!--Div de las etiquetas-->
+                <div class="card col-lg-12 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+                    <div class="row" style="text-align-last:center">
+                        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+                            <div class="card-header">
+                                <h6> Capacidad Maxima</h6>
+                            </div>
+
+                            <h4 style="color:black">20,000 Kg</h4>
+                        </div>
+                        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+                            <div class="card-header">
+                                <h6>Nivel del Tanque</h6>
+                            </div>
+                            <h4 style="color:black" id="lblpor"></h4>
+                        </div>
+
+                        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+                            <div class="card-header">
+                                <h6>Cantidad de Arena</h6>
+                            </div>
+                            <h4 style="color:black" id="lbltotal"></h4>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- div de la temperatura -->
+                <div class="card col-lg-12 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+                    <div class="card-header">
+                        <h6 style="color:black; text-align-last:center">Temperatura</h6>
+                    </div>
+                    <figure class="highcharts-figure">
+                        <div id="contentTempuratura" class="chart-container"  style="height:200px; width:auto"></div>
+                    </figure>
+                </div>
+                <!-- div del progressbar -->
+                <div class="card col-lg-12 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+
+                    <div class="card-header">
+                        <h6 style="color:black; text-align-last:center">Estado Del Tanque</h6>
+                    </div>
+
+                    <div class="row" style=" text-align-last: center; padding-top: 10px;">
+                        <div class="single-skill">
+
+                            <div class="circlechart" data-percentage="">
+                                <svg class="circle-chart">
+                                    <circle class="circle-chart__background" cx="16.9" cy="16.9" r="15.9"></circle>
+                                    <circle class="circle-chart__circle success-stroke" stroke-dasharray="92,100" cx="16.9" cy="16.9" r="15.9"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<script>
+
+    setInterval("chart()", 50000);
+    window.onload = chart;
+
+
+    function chart() {
+            var rd = {};
+           rd.Id =0;
+
+           $.ajax({
+                type:"POST",
+                url: '@Url.Action("almacenamiento")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType:"application/json; chartset=uft-8",
+                success: function (Response) {
+
+                    if (Response != null) {
+
+                        $("#lblpor").html(Response.Nivel + "%");
+                        var costante1 = 20000;
+                        var nvl = Response.Nivel;
+                        var promedio1 = costante1 * nvl;
+                        var _cantddTanque = promedio1 / 100;
+                        $("#lbltotal").html(_cantddTanque + "KG");
+
+
+                        var constante = 92;
+                        var promedio = (nvl * constante) / 100;
+                        var _nvlTanque = constante - promedio;
+
+                        if (nvl >= 0 && nvl<= 50) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #E74A3B 20%, #E74A3B 100%)");
+                        }
+                        if (nvl > 50 && nvl <= 80) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #F6C23E 20%, #F6C23E 100%)");
+                        }
+                        if (nvl > 80) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #22a999 20%, #22a999 100%)");
+                        }
+
+
+                        function makesvg(percentage1, inner_text = "") {
+                            var svg = "";
+                            var percentage = "";
+                            var percentage_str = "";
+
+
+                            if (Response.Estado == true) {
+                                percentage_str = "Abierto"
+                                percentage = "0";
+                            } else {
+                                percentage_str = "Cerrado";
+                                percentage = "100";
+                            }
+
+                            var abs_percentage = Math.abs(percentage).toString();
+
+                            var classes = "";
+
+                            inner_text = "";
+                            if (percentage_str=="") {
+                                classes = "danger-stroke circle-chart__circle--negative";
+                            } else if (percentage_str == "Abierto") {
+                                classes = "#00ff67";
+                            } else {
+                                classes = "danger-stroke circle-chart__circle--negative";
+                            }
+
+                            svg = '<svg class="circle-chart" viewbox="0 0 33.83098862 33.83098862" xmlns="http://www.w3.org/2000/svg">'
+                                + '<circle class="circle-chart__background" cx="16.9" cy="16.9" r="15.9" />'
+                                + '<circle class="circle-chart__circle ' + classes + '"'
+                                + 'stroke-dasharray="' + abs_percentage + ',100"    cx="16.9" cy="16.9" r="15.9" />'
+                                + '<g class="circle-chart__info">'
+                                + '<text class="circle-chart__percent" x="17.9" y="15.5">' + percentage_str+ '</text>';
+
+                            if (inner_text) {
+                                svg += '<text class="circle-chart__subline" x="16.91549431" y="22">' + inner_text + '</text>'
+                            }
+
+                            svg += ' </g></svg>';
+
+                            return svg
+                        }
+
+                        (function ($) {
+
+                            $.fn.circlechart = function () {
+                                this.each(function () {
+
+                                    var percentage = $(this).data("percentage");
+                                    var inner_text = $(this).text();
+                                    $(this).html(makesvg(percentage, inner_text));
+                                });
+                                return this;
+                            };
+
+                        }(jQuery));
+
+                        $(function () {
+                            $('.circlechart').circlechart();
+                        });
+                        var gaugeOptions = {
+                            chart: {
+                                type: 'solidgauge'
+                            },
+
+                            title: null,
+
+                            pane: {
+                                center: ['50%', '85%'],
+                                size: '140%',
+                                startAngle: -90,
+                                endAngle: 90,
+                                background: {
+                                    backgroundColor:
+                                        Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                                    innerRadius: '60%',
+                                    outerRadius: '100%',
+                                    shape: 'arc'
+                                }
+                            },
+
+                            exporting: {
+                                enabled: false
+                            },
+
+                            tooltip: {
+                                enabled: false
+                            },
+
+                            // the value axis
+                            yAxis: {
+                                stops: [
+                                    [0.1, '#55BF3B'], // green
+                                    [0.5, '#DDDF0D'], // yellow
+                                    [0.9, '#DF5353'] // red
+                                ],
+                                lineWidth: 0,
+                                tickWidth: 0,
+                                minorTickInterval: null,
+                                tickAmount: 2,
+                                title: {
+                                    y: -70
+                                },
+                                labels: {
+                                    y: 16
+                                }
+                            },
+
+                            plotOptions: {
+                                solidgauge: {
+                                    dataLabels: {
+                                        y: 5,
+                                        borderWidth: 0,
+                                        useHTML: true
+                                    }
+                                }
+                            }
+                        };
+                        // The speed gauge
+                        var chartSpeed = Highcharts.chart('contentTempuratura', Highcharts.merge(gaugeOptions, {
+                            title: {
+                                text: ''
+                            },
+                            yAxis: {
+                                min: 0.0,
+                                max: 100.0
+
+                            },
+
+                            credits: {
+                                enabled: false
+                            },
+
+                            series: [{
+                                name: 'Temperatura',
+                                data: [Response.temAlmacenamiento],
+                                dataLabels: {
+                                    format:
+                                        '<div style="text-align:center">' +
+                                        '<span style="font-size:25px">{y}</span><br/>' +
+                                        '<span style="font-size:12px;opacity:0.4">°C</span>' +
+                                        '</div>'
+                                },
+                                tooltip: {
+                                    valueSuffix: '°C'
+                                }
+                            }]
+
+                        }));
+
+
+                    } else {
+                        alert('NULO');
+                    }
+                },
+            });
+        }
+
+</script>
+
+
+
+

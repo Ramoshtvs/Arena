@@ -1,0 +1,396 @@
+﻿
+@{
+    ViewBag.Title = "AlmacenamientoS";
+}
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+
+
+<div class="row responsive" style="padding-top:51px">
+    <div class="row">
+        <div class="col-lg-7" style="padding-top:5px">
+            <h4 style="font-size: 35px; text-align: end; font-family: 'Lucida Bright'">Salida De Almacenamiento</h4>
+        </div>
+
+        <div class="col-lg-4" style="padding-top:20px; text-align:initial">
+            <input type="text" id="salida" onchange="checkt()" style="width: 250px" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10" style=" box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+
+            <table id="tblAlmacenamiento" class="table table-striped">
+                <thead>
+                    <tr style="text-align:center">
+                        <th></th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                        <th>E</th>
+                        <th>F</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <label id="t1">
+                                <input type="checkbox" class="seleccionado" value="l1">
+
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A1"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t6">
+                                <input type="checkbox" class="seleccionado" value="l6">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A6"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t11">
+                                <input type="checkbox" class="seleccionado" value="l11">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A11"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t16">
+                                <input type="checkbox" class="seleccionado" value="l16">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A16"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t21">
+                                <input type="checkbox" class="seleccionado" value="l21">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A21"></label>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>
+                            <label id="t2">
+                                <input type="checkbox" class="seleccionado" value="l2">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A2"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t7">
+                                <input type="checkbox" class="seleccionado" value="l7">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A7"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t12">
+                                <input type="checkbox" class="seleccionado" value="l12">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A12"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t17">
+                                <input type="checkbox" class="seleccionado" value="l17">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A17"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t22">
+                                <input type="checkbox" class="seleccionado" value="l22">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A22">A127-09-20220001</label>
+                            </label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>
+                            <label id="t3">
+                                <input type="checkbox" class="seleccionado" value="l3">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A3"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t8">
+                                <input type="checkbox" class="seleccionado" value="l8">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A8"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t13">
+                                <input type="checkbox" class="seleccionado" value="l13">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A13"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t18">
+                                <input type="checkbox" class="seleccionado" value="l18">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A18"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t23">
+                                <input type="checkbox" class="seleccionado" value="l23">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A23"></label>
+                            </label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>
+                            <label id="t4">
+                                <input type="checkbox" class="seleccionado" value="l4">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A4"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t9">
+                                <input type="checkbox" class="seleccionado" value="l9">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A9"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t14">
+                                <input type="checkbox" class="seleccionado" value="l14">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A14"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t19">
+                                <input type="checkbox" class="seleccionado" value="l19">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A19"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t24">
+                                <input type="checkbox" class="seleccionado" value="l24">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A24"></label>
+                            </label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>
+                            <label id="t5">
+                                <input type="checkbox" class="seleccionado" value="l5">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A5"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t10">
+                                <input type="checkbox" class="seleccionado" value="l10">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A10"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t15">
+                                <input type="checkbox" class="seleccionado" value="l15">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A15"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t20">
+                                <input type="checkbox" class="seleccionado" value="l20">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A20"></label>
+                            </label>
+                        </td>
+                        <td>
+                            <label id="t25">
+                                <input type="checkbox" class="seleccionado" value="l25">
+                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
+                                <br />
+                                <label id="A25"></label>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+        window.onload = chart;
+
+        var lista = document.getElementsByClassName("seleccionado");
+
+        var listaPosicion;
+        var lstCodigo;
+
+        function chart() {
+            document.getElementById("salida").focus();
+
+            $("#t1").hide(); $("#t2").hide(); $("#t3").hide(); $("#t4").hide(); $("#t5").hide();
+            $("#t6").hide(); $("#t7").hide(); $("#t8").hide(); $("#t9").hide(); $("#t10").hide();
+            $("#t11").hide(); $("#t12").hide(); $("#t13").hide(); $("#t14").hide(); $("#t15").hide();
+            $("#t16").hide(); $("#t17").hide(); $("#t18").hide(); $("#t19").hide(); $("#t20").hide();
+            $("#t21").hide(); $("#t22").hide(); $("#t23").hide(); $("#t24").hide(); $("#t25").hide();
+
+
+
+
+            var rd = {};
+            rd.Fecha = 0;
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AlmacenamientoFinal")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType: "application/json; chartset=uft-8",
+                success: function (Response) {
+
+                    if (Response != null) {
+
+                        listaPosicion = Response.lstposicion;
+                        lstCodigo = Response.lstCodigo;
+                        //$("#lblTamaño").html("Total: " + Response.VarAlmacenamientoF + " KG");
+
+                        for (var i = 0; i < listaPosicion.length; i++) {
+                            $("#A" + listaPosicion[i]+"").html(lstCodigo[i]);
+                            $("#t" + listaPosicion[i]+"").show();
+                        }
+
+
+                    } else {
+                        alert('NO ENTRO');
+                    }
+
+                }
+
+            });
+        }
+
+        function checkt() {
+            var listas = [];
+            var LstTs = [];
+
+            var salir = document.getElementById("salida").value;
+
+            if (salir != null) {
+
+                for (var i = 0; i < lista.length; i++) {
+
+                    var _valorInput = lista[i].value;
+                    var _valor = _valorInput.substring(1, 3);
+
+                    var _valorCodigo = document.getElementById("A" + _valor + "").textContent;
+
+                    if (_valorCodigo == salir) {
+                        listas[i] = salir;
+                        LstTs[i] = "t" + _valor + "";
+                    }
+                }
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("ActualizarTabla")',
+                data: JSON.stringify(listas),
+                dataType: "json",
+                contentType: "application/json; chartset=uft-8",
+                success: function (Response) {
+                    if (Response != null) {
+
+                       for (var i = 0; i < listas.length; i++) {
+                           $("#" + LstTs[i] + "").hide();
+                           $("#salida").val("");
+                       }
+
+                    } else {
+                        alert('NO ENTRO');
+                    }
+                },
+            });
+         }
+        }
+
+        setInterval(function () {
+            pallet()
+        }, 1000);
+
+        function pallet() {
+
+            var rd = {};
+            rd.Fecha = 0;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AlmacenamientoS")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType: "application/json; chartset=uft-8",
+                success: function (Responses) {
+                    if (Responses != null) {
+
+                        var listPos = Responses.posicion;
+                        var listCod = Responses.codigo;
+                        $("#A" + listPos + "").html(listCod);
+                        $("#t" + listPos + "").show();
+
+                    }
+                },
+            });
+        }
+    </script>
+}
+

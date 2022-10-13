@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limpieza Arena</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/fontawesome-free-6.1.2-web/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
+    <link href="~/Content/StyleArena/Nav-Bar.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Centro de Investigación Tecnológica y Sustentabilidad</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="text-align:center">
+                        <div class="col-lg-4">
+
+                            <i class="fa fa-phone" aria-hidden="true" style="font-size: 35px; padding-top: 5px"></i> <br />
+
+                            <h5 style="padding-top:10px; color:darkblue">449-658-97-90</h5>
+
+                        </div>
+
+                        <div class="col-lg-4" style="text-align:center">
+                            <i class="fa fa-globe" aria-hidden="true" style="font-size: 35px;"></i> <br />
+                            <br />
+                            <a href="https://www.citysmx.com/" style="color: darkblue; font-size: 20px;">CiTys-mx.com</a>
+                        </div>
+
+                        <div class="col-lg-4" style="text-align:center">
+                            <i class="fa fa-envelope" aria-hidden="true" style="font-size: 30px;"></i> <br />
+                            <br />
+                            <h5 style="color: darkblue">ventas.ags@citys-mx.com</h5>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Close</button>                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="header-nav">
+        <div style="text-align: end;">
+            <button style="border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                <img src="~/Imagen/Citys1.png" style="height:50px; width: 60px" />
+            </button>
+        </div>
+    </div>
+    <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+    <label for="openSidebarMenu" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+
+    </label>
+    <div id="sidebarMenu">
+        <ul class="sidebarMenuInner">
+            <li>
+                <a href="@Url.Action("Index","Home")"> <i class='fa fa-home'></i> Home</a>
+            </li>
+            <li><a href="@Url.Action("pesaje","Home")">Pesaje</a></li>
+            <li><a href="@Url.Action("almacenamiento","Home")">Almacenamiento</a></li>
+            <li><a href="@Url.Action("triturado","Home")">Triturado</a></li>
+            <li><a href="@Url.Action("Cribado","Home")">Cribado</a></li>
+            <li><a href="@Url.Action("separacionMagneticos","Home")">Separeción Magneticos</a></li>
+            <li><a href="@Url.Action("SentrifugadodeCargas","Home")">Centrifugado Cargas</a></li>
+            <li><a href="@Url.Action("InspeccionTamañoGrano","Home")">Inspección Tamaño De Grano</a></li>
+            <li><a href="@Url.Action("QuemadoResina","Home")">Quemado De Resina</a></li>
+            <li><a href="@Url.Action("TanqueEnfriamento","Home")">Tanque De Enfriamiento</a></li>
+            <li><a href="@Url.Action("CribadoProceso2","Home")">Cribado</a></li>
+            <li><a href="@Url.Action("InstpeccionConductividad","Home")">Inspección De Conductividad</a></li>
+            <li><a href="@Url.Action("PesajeFinalDiario","Home")">Pesaje</a></li>
+            <li><a href="@Url.Action("AlmacenamientoS","Home")">Salida De ALMACENAMIENTO</a></li>
+            <li><a href="@Url.Action("AlmacenamientoFinal","Home")">ALMACENAMIENTO FINAL</a></li>
+
+
+        </ul>
+    </div>
+
+
+
+
+
+    <div class="body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

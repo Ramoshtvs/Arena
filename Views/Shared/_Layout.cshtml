@@ -46,7 +46,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Close</button>                   
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -54,12 +54,19 @@
 
 
     <div class="header-nav">
-        <div style="text-align: end;">
-            <button style="border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <div class="row">
+            <div  class="col-lg-11" style="text-align: center; align-self: self-end;">
+                <h2 style="font-size: 35px; color:white; font-family: 'Cascadia Code Light'">LIMPIEZA DE ARENA INORGÁNICA</h2>
+            </div>
+            <div class="col-lg-1" style="text-align: end;">
+                <button style="border: none; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
-                <img src="~/Imagen/Citys1.png" style="height:50px; width: 60px" />
-            </button>
+                    <img src="~/Imagen/Citys1.png" style="height:50px; width: 60px" />
+                </button>
+            </div>
+
         </div>
+
     </div>
     <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
     <label for="openSidebarMenu" class="sidebarIconToggle">
@@ -100,7 +107,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Citys</p>
         </footer>
     </div>
 

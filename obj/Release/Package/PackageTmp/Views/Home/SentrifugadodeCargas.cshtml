@@ -1,0 +1,310 @@
+﻿
+@{
+    ViewBag.Title = "SentrifugadodeCargas";
+}
+
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script src="~/Scripts/Highcharts/highcharts.js"></script>
+<script src="~/Scripts/Highcharts/exporting.js"></script>
+<script src="~/Scripts/Highcharts/export-data.js"></script>
+<script src="~/Scripts/Highcharts/accessibility.js"></script>
+
+<script src="~/Scripts/table ecxel/tableToExcel.js"></script>
+<script src="~/Scripts/table ecxel/table2excel.js"></script>
+
+<div class="row" style="padding-top:51px">
+    <div class="col-lg-8" style="text-align:end">
+        <h4 style="font-size: 35px;font-family: 'Lucida Bright'">Centrifugador De Cargas</h4>
+    </div>
+    <div class="col-lg-3" style="text-align: end; padding-top:5px">
+        <input id="fecha" type="date" onchange="chart()" style="font-size: 16px;  width:200px; height:40px; text-transform: uppercase; font-weight:bold;" />
+    </div>
+</div>
+<div class="row responsive" style="padding-top:10px">
+    <div class="col-lg-12">
+        <figure class="highcharts-figure">
+            <div id="GrafSentriCargar"></div>
+        </figure>
+    </div>
+</div>
+
+
+<div class="container" style="padding-top:10px">
+    <button id="exportBtn1" class="btn btn-success">Exportar</button>
+    <br />
+    <br />
+
+
+    <div class="row responsive" style="width:100%">
+        <div class="table-responsive">
+            <table id="tblTemperatura" class="table table-striped">
+                <thead style="background: black; color: white; text-align-last: center;">
+                    <tr>
+                        <th>ID</th>
+                        <th>TEMPERATURA DEL AGUA</th>
+                        <th>CONDUCTIVIDAD</th>
+                        <th>PH</th>
+                        <th>DUREZA AGUA</th>
+                        <th>SILICE</th>
+                        <th>FOSFATO</th>
+                        <th>FECHA</th>
+                    </tr>
+
+                </thead>
+
+                <tbody style="text-align-last: center;">
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#exportBtn1").click(function () {
+            TableToExcel.convert(document.getElementById("tblTemperatura"), {
+                name: "SentrifugadoDeCargar.xlsx",
+                sheet: {
+                    name: "Doc1"
+                }
+            });
+        });
+    });
+</script>
+
+
+
+<script>
+    setInterval("chart1()", 5000);
+    window.onload = time;
+    function time() {
+        var now = new Date();
+        var day = ("0" + (now.getDate())).slice(-2);
+        var mes = ("0" + (now.getMonth() + 1)).slice(-2);
+        var year = now.getFullYear();
+        $("#fecha").val(year + "-" + mes + "-" + day);
+        chart()
+    }
+    var series;
+    function chart() {
+
+        var rd = {};
+        rd.Fecha = $("#fecha").val();
+
+
+        var actual = new Date();
+        var daia = ("0" + (actual.getDate())).slice(-2);
+        var mese = ("0" + (actual.getMonth() + 1)).slice(-2);
+        var anio = actual.getFullYear();
+        var fechaActual = anio + "-" + mese + "-" + daia;
+
+           $.ajax({
+                type:"POST",
+                url: '@Url.Action("SentrifugadodeCargas")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType:"application/json; chartset=uft-8",
+               success: function (Response) {
+
+                   if (Response != null) {
+
+                       if (rd.Fecha == fechaActual) {
+                           Highcharts.chart('GrafSentriCargar', {
+                               chart: {
+                                   type: 'line',
+                                   events: {
+                                       load: function () {
+                                            series = this.series[0];
+                                       }
+                                   }
+                               },
+                               credits: {
+                                   enabled: false
+                               },
+                               title: {
+                                   text: 'Temperatura Del Agua'
+                               },
+                               xAxis: {
+                                   type: 'category',
+                                   labels: {
+                                       rotation: 40,
+                                       style: { color: 'Black' }
+                                   }
+                               },
+                               yAxis: {
+                                   title: {
+                                       text: 'Temperature (°C)'
+                                   }
+                               },
+                               plotOptions: {
+                                   line: {
+                                       dataLabels: {
+                                           enabled: true
+                                       },
+                                       enableMouseTracking: false
+                                   }
+                               },
+                               series: [{
+                                   name: 'Temperatura',
+                                   data: (function () {
+
+                                       var data = [],
+                                           dat = Response.lstTemperaturaSC,
+                                           fec = Response.lstfechaSC;
+
+                                       for (var i = 0; i < dat.length; i++) {
+
+                                           data.push({
+                                               name: fec[i],
+                                               y: dat[i]
+                                           });
+
+                                       }
+                                       return data;
+                                   }())
+                               }]
+                           });
+                       } else {
+                           Highcharts.chart('GrafSentriCargar', {
+                               chart: {
+                                   type: 'line'
+                               },
+                               credits: {
+                                   enabled: false
+                               },
+                               title: {
+                                   text: 'Temperatura Del Agua'
+                               },
+                               xAxis: {
+                                   categories: Response.lstfechaSCL,
+                                   labels: {
+                                       skew3d: true,
+                                       rotation: 45,
+                                       style: {
+                                           fontSize: '16px'
+                                       }
+                                   }
+                               },
+                               yAxis: {
+                                   title: {
+                                       text: 'Temperature (°C)'
+                                   }
+                               },
+                               plotOptions: {
+                                   line: {
+                                       dataLabels: {
+                                           enabled: true
+                                       },
+                                       enableMouseTracking: false
+                                   }
+                               },
+                               series: [{
+                                   name: 'Temperatura',
+                                   data: Response.lstTemperaturaSC
+                               }]
+                           });
+
+                       }
+                        //alert(Response);
+
+                        var items = Response.lista;
+                        $('#tblTemperatura > tbody').empty();
+                        $.each(items, function (index, value) {
+
+
+
+                            $("#tblTemperatura")
+                                .append("<tr><td>"
+                                    + value.ID
+                                + "</td><td>" + value.Temperatura
+                                + "</td><td>" + value.Conductividad
+                                + "</td><td>" + value.Ph
+                                + "</td><td>" + value.Dureza
+                                + "</td><td>" + value.Fosfato
+                                + "</td><td>" + value.Silice
+                                + "</td><td>" + value.Fecha
+                                + "</td></tr>");
+
+                        });
+
+                    } else {
+
+                        alert('NULO');
+                    }
+               },
+           });
+    }
+
+
+    function chart1() {
+        //$("#tblTemperatura > tbody").remove();
+
+        var rd = {};
+        rd.Fecha = $("#fecha").val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ValidarPuntoSC")',
+            data: '{rd: ' + JSON.stringify(rd) + '}',
+            dataType: "json",
+            contentType: "application/json; chartset=uft-8",
+            success: function (Responses) {
+                if (Responses != null) {
+                    if (Responses.varTempSC > 0) {
+                        var x = Responses.varfechaSC,
+                            y = Responses.varTempSC;
+                        series.addPoint([x, y]);
+                    }
+                } else {
+                }
+            },
+        });
+           $.ajax({
+                type:"POST",
+                url: '@Url.Action("SentrifugadodeCargas")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType:"application/json; chartset=uft-8",
+               success: function (Response) {
+
+
+
+                    if (Response != null) {
+
+                        var items = Response.lista;
+                        $('#tblTemperatura > tbody').empty();
+                        $.each(items, function (index, value) {
+
+
+
+                            $("#tblTemperatura")
+                                .append("<tr><td>"
+                                    + value.ID
+                                + "</td><td>" + value.Temperatura
+                                + "</td><td>" + value.Conductividad
+                                + "</td><td>" + value.Ph
+                                + "</td><td>" + value.Dureza
+                                + "</td><td>" + value.Fosfato
+                                + "</td><td>" + value.Silice
+                                + "</td><td>" + value.Fecha
+                                + "</td></tr>");
+
+                        });
+
+                    } else {
+
+                        alert('NULO');
+                    }
+               },
+           });
+
+
+    }
+
+
+</script>
+

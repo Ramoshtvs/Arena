@@ -1,0 +1,630 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script src="~/Scripts/Highcharts/highcharts.js"></script>
+<script src="~/Scripts/Highcharts/highcharts-3d.js"></script>
+<script src="~/Scripts/Highcharts/highcharts-more.js"></script>
+<script src="~/Scripts/Highcharts/solid-gauge.js"></script>
+<script src="~/Scripts/Highcharts/data.js"></script>
+<script src="~/Scripts/Highcharts/drilldown.js"></script>
+<script src="~/Scripts/Highcharts/annotations.js"></script>
+<script src="~/Scripts/Highcharts/exporting.js"></script>
+<script src="~/Scripts/Highcharts/export-data.js"></script>
+<script src="~/Scripts/Highcharts/accessibility.js"></script>
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/StyleArena/GrafPie.css" rel="stylesheet" />
+
+<div class="row responsive" style="padding-top:51px; ">
+    <div class="row">
+        <!--Grafica pesaje-->
+        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+
+            <div class="card-header" style="text-align-last:end">
+                <h6 id="UltimoP"></h6>
+            </div>
+
+            <div class="card-body">
+                <figure class="highcharts-figure">
+                    <div id="pesa" style="height:220px; width:auto;"></div>
+                </figure>
+            </div>
+        </div>
+        <!--grafica tamaño de grano-->
+        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+
+            <div class="card-body">
+                <figure class="highcharts-figure">
+                    <div id="GrafTG" style="height:261px; width:auto;"></div>
+                </figure>
+            </div>
+
+
+        </div>
+        <!--grafica temperatura-->
+        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+            <div class="card-body">
+                <figure class="highcharts-figure">
+                    <div id="contentTempuratura" class="chart-container" style="height:261px; width:auto"></div>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+
+            <div class="card-header" style="text-align-last:end">
+                <h6 id="UltimoT"></h6>
+            </div>
+
+            <div class="card-body">
+                <div id="GrafTriturado" style="height:271px; width:auto"> </div>
+            </div>
+
+
+        </div>
+        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+
+            <div class="card-header">
+                <h5 id="lblTamaño" style="color:black; text-align-last:center; "></h5>
+            </div>
+
+            <div class="card-body">
+                <figure class="highcharts-figure">
+                    <div id="Grafpie" style="height:230px; width:auto;"></div>
+                </figure>
+            </div>
+
+
+        </div>
+        <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+
+            <div class="card-header">
+                <h5 style="color:black; text-align-last:center" id="totalT"></h5>
+            </div>
+
+            <div class="card-body" style=" text-align: -webkit-center;">
+                <div style="height:271px; width:200px;"  onclick="Falma()">
+                    <div style="padding:0; ">
+                        <div id="nivel" class="level" style="margin:0;">
+                            <img src="~/Imagen/Sin título-1.png" alt="frase mamalona" style="height:auto; width:100%;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    window.onload = chart;
+    //setInterval("chart()", 1000000);
+    let grafPie = null;
+    var series = null;
+    var series1 = null;
+    var series2 = null;
+    var series3 = null;
+    var series4 = null;
+
+    function chart() {
+
+            var rd = {};
+            rd.Fecha =0;
+        var actual = new Date();
+        var daia = ("0" + (actual.getDate())).slice(-2);
+        var mese = ("0" + (actual.getMonth() + 1)).slice(-2);
+        var anio = actual.getFullYear();
+        var fechaActual = daia + "/" + mese + "/" + anio ;
+            $.ajax({
+                type:"POST",
+                url: '@Url.Action("Index")',
+                data: '{rd: ' + JSON.stringify(rd) + '}',
+                dataType: "json",
+                contentType:"application/json; chartset=uft-8",
+                success: function (Response) {
+
+                    if (Response != null) {
+                        $("#lblTamaño").html("Total Almacenamiento: " + Response.VarIndexAlmacenamiento + " KG");
+                        $("#tank").val(Response.Nivel);
+                        $("#UltimoP").html("ULTIMO PESAJE: " + Response.VarUltimoP + " KG");
+                        $("#UltimoT").html("ULTIMO CICLO: " + Response.VarUltimoT + " Hrs");
+                        $("#totalT").html("Tanque De Almacenamiento: " + Response.Nivel + " %");
+
+                        var texto = Response.Indexpallet;
+                        var numeros = Response.IndexAlmacenamientoF;
+                        var result = [];
+
+                        for (var i = 0; i < texto.length; i++) {
+                            result.push([texto[i], numeros[i]]);
+                        }
+
+
+                        /*Grafica pesaje*/
+                        Highcharts.chart('pesa', {
+                                chart: {
+                                    type: 'spline',
+                                    animation: Highcharts.svg,
+                                    marginRight: 10,
+                                events: {
+                                        click: function () {
+                                        var url = '@Url.Action("pesaje","Home")';
+                                        window.location.href = url;
+                                    },
+                                    load: function () {
+                                            series = this.series[0];
+                                        }
+                                    }
+                                },
+
+                                time: {
+                                    useUTC: false
+                                },
+
+                                title: {
+                                    text: 'Pesaje De ' + fechaActual+''
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            xAxis: {
+                                type: 'category',
+                                labels: {
+                                    rotation: 40,
+                                    style: { color: 'Black' }
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Kilogramos'
+                                }
+                            },
+
+                                tooltip: {
+                                    headerFormat: '<b>{series.name}</b><br/>',
+                                    pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                                },
+
+                                legend: {
+                                    enabled: false
+                                },
+                                exporting: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: 'Peso',
+                                    data: (function () {
+                                        var data = [],
+                                            dat = Response.indexPesaje,
+                                            fec = Response.indexFechaPesaje;
+
+                                        for (var i = 0; i < dat.length; i++) {
+                                                data.push({
+                                                    name: fec[i],
+                                                    y: dat[i]
+                                                });
+                                        }
+                                        return data;
+                                    }())
+                                }]
+                        });
+
+                        /*Grafica Tamaño de grano*/
+                        Highcharts.chart('GrafTG', {
+                           chart: {
+                                type: 'column',
+                                events: {
+                                     click: function p() {
+                                        var url = '@Url.Action("InspeccionTamañoGrano","Home")';
+                                        window.location.href = url;
+                                    },
+                                        load: function () {
+                                            series1 = this.series[0];
+
+                                        }
+                                }
+                           },
+                           title: {
+                               text: 'Tamaño De Grano'
+                           },
+                           accessibility: {
+                               announceNewData: {
+                                   enabled: true
+                               }
+                           },
+                           credits: {
+                               enabled: false
+                           },
+                           xAxis: {
+                               type: 'category',
+                               labels: {
+                                   rotation: 40,
+                                   style: { color: 'Black' }
+                               }
+                           },
+                           yAxis: {
+                               title: {
+                                   text: 'Tamaño Del Grano'
+                               }
+
+                           },
+                           legend: {
+                               enabled: false
+                           },
+                           plotOptions: {
+                               series: {
+                                   borderWidth: 10,
+                                   dataLabels: {
+                                       enabled: true,
+                                       format: '{point.y:.1f} AFS'
+                                   }
+                               }
+                           },
+
+                           series: [
+                               {
+                                   name: ' AFS',
+                                   colorByPoint: true,
+                                   data: (function () {
+
+                                       var data = [],
+                                           dat = Response.indexInspeccion,
+                                           fec = Response.indexFechaInspeccion;
+
+                                       for (var i = 0; i < dat.length; i++) {
+
+                                               data.push({
+                                                   name: fec[i],
+                                                   y: dat[i]
+                                               });
+
+                                       }
+                                       return data;
+                                   }())
+
+
+                               }
+                           ]
+                       });
+                        /*Grafica tiempo ciclo*/
+                         Highcharts.chart('GrafTriturado', {
+
+                            chart: {
+                                type: 'area',
+                                zoomType: 'x',
+                                panning: true,
+                                panKey: 'shift',
+                                scrollablePlotArea: {
+                                    minWidth: 600
+                                 },
+
+                                events: {
+                                        load: function () {
+                                            series2 = this.series[0];
+
+                                    },
+                                    click: function () {
+                                        var url = '@Url.Action("triturado","Home")';
+                                        window.location.href = url;
+                                    }
+                                }
+
+                            },
+                            title: {
+                                text: 'Tiempo Triturado'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            annotations: [{
+                                draggable: '',
+                                labelOptions: {
+                                    backgroundColor: 'rgba(255,255,255,0.5)',
+                                    verticalAlign: 'top',
+                                }
+                            }],
+
+                            xAxis: {
+                                type: 'category',
+                                labels: {
+                                    rotation: 40,
+                                    format: '{value}',
+                                    style: { color: 'Black' }
+                                },
+
+                                title: {
+                                    text: 'Tiempo'
+                                }
+                            },
+
+                            yAxis: {
+
+                                title: {
+                                    text: null
+                                },
+                                labels: {
+                                    format: '{value} m'
+                                }
+
+                            },
+
+                            tooltip: {
+                                headerFormat: 'ID: {point.x}<br>',
+                                pointFormat: 'Tiempo Ciclo: {point.y} Hrs',
+                                shared: true
+                            },
+
+                            legend: {
+                                enabled: false
+                            },
+
+                            series: [{
+                                name: 'Tiempo Ciclo',
+                                data:(function () {
+                                    var data = [],
+                                        dat = Response.indexTiempo,
+                                        fec = Response.indexFechaTiempo;
+
+                                    for (var i = 0; i < dat.length; i++) {
+                                        data.push({
+                                            name: fec[i],
+                                            y: dat[i]
+                                        });
+                                    }
+                                    return data;
+                                }()),
+                                lineColor: Highcharts.getOptions().colors[1],
+                                color: Highcharts.getOptions().colors[2],
+                                fillOpacity: 0.5,
+
+                            }]
+
+                        });
+                        /*Grafica pastel*/
+                         Highcharts.chart('Grafpie', {
+                            chart: {
+                                type: 'pie',
+                                options3d: {
+                                    enabled: true,
+                                    alpha: 45
+                                },
+                                events: {
+                                    click: function () {
+                                        var url = '@Url.Action("AlmacenamientoFinal", "Home")';
+                                        window.location.href = url;
+                                    },
+                                     load: function () {
+                                            series3 = this.series[0];
+
+
+                                    }
+                                }
+
+                            },
+                            title: {
+                                text: ''
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            plotOptions: {
+                                pie: {
+                                    innerSize: 100,
+                                    depth: 45
+                                }
+                            },
+                            series: [{
+                                name: 'KG',
+                                data: result
+                            }]
+                        });
+                         /*Grafica Temperatura*/
+                        var gaugeOptions = {
+                            chart: {
+                                type: 'solidgauge',
+                                events: {
+                                    click: function () {
+                                        var url = '@Url.Action("almacenamiento", "Home")';
+                                        window.location.href = url;
+                                    },
+                                    load: function () {
+                                            series4 = this.series[0];
+
+
+                                    }
+                                }
+                            },
+
+                            title: null,
+
+                            pane: {
+                                center: ['50%', '85%'],
+                                size: '140%',
+                                startAngle: -90,
+                                endAngle: 90,
+                                background: {
+                                    backgroundColor:
+                                        Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                                    innerRadius: '60%',
+                                    outerRadius: '100%',
+                                    shape: 'arc'
+                                }
+                            },
+
+                            exporting: {
+                                enabled: false
+                            },
+
+                            tooltip: {
+                                enabled: false
+                            },
+
+                            // the value axis
+                            yAxis: {
+                                stops: [
+                                    [0.1, '#55BF3B'], // green
+                                    [0.5, '#DDDF0D'], // yellow
+                                    [0.9, '#DF5353'] // red
+                                ],
+                                lineWidth: 0,
+                                tickWidth: 0,
+                                minorTickInterval: null,
+                                tickAmount: 2,
+                                title: {
+                                    y: -70
+                                },
+                                labels: {
+                                    y: 16
+                                }
+                            },
+
+                            plotOptions: {
+                                solidgauge: {
+                                    dataLabels: {
+                                        y: 5,
+                                        borderWidth: 0,
+                                        useHTML: true
+                                    }
+                                }
+                            }
+                        };
+                        var chartSpeed = Highcharts.chart('contentTempuratura', Highcharts.merge(gaugeOptions, {
+                            title: {
+                                text: 'Temperatura'
+                            },
+                            yAxis: {
+                                min: 0.0,
+                                max: 100.0
+
+                            },
+
+                            credits: {
+                                enabled: false
+                            },
+
+                            series: [{
+                                name: 'Temperatura',
+                                data: [Response.temAlmacenamiento],
+                                dataLabels: {
+                                    format:
+                                        '<div style="text-align:center">' +
+                                        '<span style="font-size:25px">{y}</span><br/>' +
+                                        '<span style="font-size:12px;opacity:0.4">°C</span>' +
+                                        '</div>'
+                                },
+                                tooltip: {
+                                    valueSuffix: '°C'
+                                }
+                            }]
+
+                        }));
+                        /*tanque de almacenamiento*/
+                        var nvl = Response.Nivel;
+                        var constante = 92;
+                        var promedio = (nvl * constante) / 100;
+                        var _nvlTanque = constante - promedio;
+
+                        if (nvl >= 0 && nvl <= 50) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #E74A3B 20%, #E74A3B 100%)");
+                        }
+                        if (nvl > 50 && nvl <= 80) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #F6C23E 20%, #F6C23E 100%)");
+                        }
+                        if (nvl > 80) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #22a999 20%, #22a999 100%)");
+                        }
+
+                    } else {
+                        alert('NULO');
+                    }
+                },
+            });
+    }
+
+    setInterval(function () {
+        newPoint()
+    }, 15000);
+
+    function newPoint() {
+        var rd = {};
+        rd.Fecha = 0;
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ValidarIndex")',
+            data: '{rd: ' + JSON.stringify(rd) + '}',
+            dataType: "json",
+            contentType: "application/json; chartset=uft-8",
+            success: function (Responses) {
+                if (Responses != null) {
+                    //pesaje
+                    if (Responses.Varpeso > 0) {
+                        $("#UltimoP").html("ULTIMO: " + Responses.Varpeso + " KG");
+                        var x = Responses.VarFechaPeso,
+                            y = Responses.Varpeso;
+                        series.addPoint([x, y]);
+                    }
+                    //tamaño de grano
+                    if (Responses.varpointaddTG > 0) {
+                        var x1 = Responses.varpointaddFechaTG,
+                            y1 = Responses.varpointaddTG;
+                        series1.addPoint([x1, y1]);
+                    }
+                    //triturado
+                    if (Responses.VarUltimoTriturado > 0) {
+                        $("#UltimoT").html("ULTIMO: " + Responses.VarUltimoTriturado + " Hrs");
+                        var x2 = Responses.VarFechaUltimoT,
+                            y2 = Responses.VarUltimoTriturado;
+                        series2.addPoint([x2, y2]);
+                    }
+                    //pastel
+                    if (Responses.VarPeiPeso > 0) {
+                        var x3 = Responses.VarPieDato,
+                            y3 = Responses.VarPeiPeso;
+                        series3.addPoint([x3, y3]);
+
+                    }
+                    //temperatura
+                    if (Responses.VarTempNew > 0) {
+                        var y4 = Responses.VarTempNew;
+                        series4.addPoint([y4], true, true);
+                        //tanqueNvl
+                        var nvl = Responses.Nivel;
+                        var constante = 92;
+                        var promedio = (nvl * constante) / 100;
+                        var _nvlTanque = constante - promedio;
+                        $("#totalT").html("Tanque De Almacenamiento: " + nvl + "%");
+                        if (nvl >= 0 && nvl <= 50) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #E74A3B 20%, #E74A3B 100%)");
+                        }
+                        if (nvl > 50 && nvl <= 80) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #F6C23E 20%, #F6C23E 100%)");
+                        }
+                        if (nvl > 80) {
+                            $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #22a999 20%, #22a999 100%)");
+                        }
+
+                    }
+
+                } else {
+                    series = null;
+                    series1 = null;
+                    series2 = null;
+                    series3 = null;
+                    series4 = null;
+                }
+                },
+            });
+
+    }
+
+    function Falma() {
+        var url = '@Url.Action("almacenamiento", "Home")';
+        window.location.href = url;
+    }
+
+</script>
