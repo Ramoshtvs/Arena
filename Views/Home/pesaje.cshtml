@@ -196,8 +196,7 @@
                             },
 
                                 tooltip: {
-                                    headerFormat: '<b>{series.name}</b><br/>',
-                                    pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                                    headerFormat: '<b>{series.name}</b><br/>'                                   
                                 },
 
                                 legend: {
@@ -276,8 +275,7 @@
                                 },
 
                                 tooltip: {
-                                    headerFormat: '<b>{series.name}</b><br/>',
-                                    pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                                    headerFormat: '<b>{series.name}</b><br/>'                                       
                                 },
 
                                 legend: {
@@ -343,14 +341,14 @@
                                                                     var y = Responses.totalMonth;
                                                                     var update = Responses.UpdateMensual;
                                                                     var y = y + update;
-                                                                        mes = Responses.mes-1;
+                                                                        mes = Responses.mes;
                                                                  
                                                                     series.data[mes].update(y);
                                                                 }
                                                             }
                                                         },
                                                     });
-                                                }, 1000);
+                                                }, 3000);
                                         }
                                     }
                             },

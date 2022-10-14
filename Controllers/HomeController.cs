@@ -479,7 +479,7 @@ namespace Arena.Controllers{
                 var data = dataMonth.OrderByDescending(x => x.Id).FirstOrDefault();
 
                 objvariables.UpdateMensual = Convert.ToDecimal(data.Peso);
-                objvariables.mes = Convert.ToInt32(fecha.Month);
+                objvariables.mes = Convert.ToInt32(fecha.Month -1);
                 objvariables.totalMonth = totalMonth;
 
             }           
@@ -753,8 +753,6 @@ namespace Arena.Controllers{
 
                 datos.Add(new SentrifugadoC
                 {
-
-                    ID = item.Id,
                     Temperatura = Convert.ToDecimal(item.TemperaturaAgua),
                     Conductividad = Convert.ToDecimal(item.Conductividad),
                     Ph = Convert.ToDecimal(item.Ph),
@@ -1121,6 +1119,7 @@ namespace Arena.Controllers{
         public ActionResult AlmacenamientoFinal(Almacenamiento rd)
         {
             VariablesContador.contadorAlmacenamientoFinal = 0;
+
             variables objvariables = new variables();
             List<decimal> lstAlmacenamientoF = new List<decimal>();
             List<string> lstpallet = new List<string>();
@@ -1128,11 +1127,23 @@ namespace Arena.Controllers{
 
             List<string> lstcodigo = new List<string>();
             List<AlmacenamientoF> datos1 = new List<AlmacenamientoF>();
-            Random random = new Random();
+           
 
-            var total = db.Almacenamiento.Where(x => x.Id != 0).ToList();
+
+
+            var total = db.Almacenamiento.Where(x => x.FechaSalida == null).ToList();
+
+
+
+
             decimal Acomulado = 0;
+
+
             VariablesContador.contadorAlmacenamientoFinal = total.Count;
+
+
+
+
             foreach (var item in total)
             {
                 if (item.pallet != null)
@@ -1184,27 +1195,33 @@ namespace Arena.Controllers{
                 {
                     if (actualizar[i] != null)
                     {
-                        ViewBag.RowsAffected = db.Database.ExecuteSqlCommand("UPDATE Almacenamiento SET FechaSalida = CURRENT_TIMESTAMP WHERE codigo='" + actualizar[i] + "'");
-                        //int w = ViewBag.RowsAffected;
+                        var _diferente = db.Almacenamiento.Where(x => x.FechaSalida == null).ToList();
+                        VariablesContador.contadorAlmacenamientoFinal = _diferente.Count;
+
+                        ViewBag.RowsAffected = db.Database.ExecuteSqlCommand("UPDATE Almacenamiento SET FechaSalida = CURRENT_TIMESTAMP WHERE codigo='" + actualizar[0] + "'");
+                        ViewBag.RowsAffected = db.Database.ExecuteSqlCommand(" UPDATE posiciones SET ocupado =0 WHERE posicion='" + actualizar[1] + "'");
+                        ////int w = ViewBag.RowsAffected;
+
                     }
                 }
             }
 
+            
             return Json(actualizar, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult AlmacenamientoS(Almacenamiento rd)
         {
             variables objvariables = new variables();
-
-
             var _diferente = db.Almacenamiento.Where(x => x.FechaSalida == null).ToList();
             var cont = _diferente.Count;
 
 
             if (cont > VariablesContador.contadorAlmacenamientoFinal)
             {
-                var UltimoAlmac = db.Almacenamiento.OrderByDescending(x => x.Id).FirstOrDefault();
+                VariablesContador.contadorAlmacenamientoFinal = cont;
+
+               var UltimoAlmac = db.Almacenamiento.OrderByDescending(x => x.Id).FirstOrDefault();
                 objvariables.posicion = Convert.ToInt32(UltimoAlmac.posicion);
                 objvariables.codigo = Convert.ToString(UltimoAlmac.codigo);
             }

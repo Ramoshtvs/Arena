@@ -40,7 +40,6 @@
             <table id="tblTemperatura" class="table table-striped">
                 <thead style="background: black; color: white; text-align-last: center;">
                     <tr>
-                        <th>ID</th>
                         <th>TEMPERATURA DEL AGUA</th>
                         <th>CONDUCTIVIDAD</th>
                         <th>PH</th>
@@ -219,9 +218,7 @@
 
 
                             $("#tblTemperatura")
-                                .append("<tr><td>"
-                                    + value.ID
-                                + "</td><td>" + value.Temperatura
+                                .append("<tr><td>" + value.Temperatura
                                 + "</td><td>" + value.Conductividad
                                 + "</td><td>" + value.Ph
                                 + "</td><td>" + value.Dureza
@@ -282,9 +279,7 @@
 
 
                             $("#tblTemperatura")
-                                .append("<tr><td>"
-                                    + value.ID
-                                + "</td><td>" + value.Temperatura
+                                .append("<tr><td>" + value.Temperatura
                                 + "</td><td>" + value.Conductividad
                                 + "</td><td>" + value.Ph
                                 + "</td><td>" + value.Dureza

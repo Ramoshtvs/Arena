@@ -64,8 +64,8 @@ C:\Users\Ramos\source\repos\Arena\bin\es\System.Web.WebPages.resources.dll
 C:\Users\Ramos\source\repos\Arena\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Ramos\source\repos\Arena\bin\es\System.Web.WebPages.Razor.resources.dll
 C:\Users\Ramos\source\repos\Arena\bin\es\System.Web.Optimization.resources.dll
-C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.csproj.AssemblyReference.cache
 C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.csproj.CoreCompileInputs.cache
 C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.csproj.CopyComplete
 C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.dll
 C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.pdb
+C:\Users\Ramos\source\repos\Arena\obj\Debug\Arena.csproj.AssemblyReference.cache
