@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-10" style=" box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
+        <div class="col-md-10" style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
 
             <table id="tblAlmacenamiento" class="table table-striped">
                 <thead>
@@ -259,8 +259,6 @@
                     </tr>
                 </tbody>
             </table>
-
-
         </div>
         <div class="col-md-1">
         </div>
@@ -275,7 +273,7 @@
 
         var lista = document.getElementsByClassName("seleccionado");
 
-        var listaPosicion;
+        var lstPosicion;
         var lstCodigo;
 
         function chart() {
@@ -303,13 +301,13 @@
 
                     if (Response != null) {
 
-                        listaPosicion = Response.lstposicion;
+                        lstPosicion = Response.lstposicion;
                         lstCodigo = Response.lstCodigo;
                         //$("#lblTamaño").html("Total: " + Response.VarAlmacenamientoF + " KG");
 
-                        for (var i = 0; i < listaPosicion.length; i++) {
-                            $("#A" + listaPosicion[i]+"").html(lstCodigo[i]);
-                            $("#t" + listaPosicion[i]+"").show();
+                        for (var i = 0; i < lstPosicion.length; i++) {
+                            $("#A" + lstPosicion[i]+"").html(lstCodigo[i]);
+                            $("#t" + lstPosicion[i]+"").show();
                         }
 
 
@@ -328,9 +326,9 @@
             
             var _valor;
 
-            var salir = document.getElementById("salida").value;
+            var txtSalida = document.getElementById("salida").value;
 
-            if (salir != null) {
+            if (txtSalida != null) {
 
                 for (var i = 0; i < lista.length; i++) {
 
@@ -339,8 +337,8 @@
 
                     var _valorCodigo = document.getElementById("A" + _valor + "").textContent;
 
-                    if (_valorCodigo == salir) {
-                        listas[0] = salir;
+                    if (_valorCodigo == txtSalida) {
+                        listas[0] = txtSalida;
                         listas[1] = _valor;
 
                         LstTs[i] = "t" + _valor + "";

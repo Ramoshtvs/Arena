@@ -186,8 +186,7 @@
                             },
 
                                 tooltip: {
-                                    headerFormat: '<b>{series.name}</b><br/>',
-                                    pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+                                    headerFormat: '<b>{series.name}</b><br/>',                                    
                                 },
 
                                 legend: {
@@ -548,7 +547,7 @@
 
     setInterval(function () {
         newPoint()
-    }, 15000);
+    }, 5000);
 
     function newPoint() {
         var rd = {};

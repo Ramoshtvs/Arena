@@ -12,8 +12,8 @@ namespace Arena.Controllers{
    
     public class HomeController : Controller
     {
-
         arenaEntities db = new Models.arenaEntities();
+
         [HttpPost]
         public ActionResult validarBarras()
         {
@@ -1084,17 +1084,21 @@ namespace Arena.Controllers{
         [HttpPost]
         public ActionResult PesajeFinalMensual(PesajeFinal rd)
         {
-
+            VariablesContador.contadorPesajeMensualF = 0;
             variables objvariables = new variables();
             List<decimal> listPesajeMensualF = new List<decimal>();
             List<string> listFechaPesajeMF = new List<string>();
-
+            DateTime fecha = DateTime.Now;
             decimal to = 0;
             //DateTime fecha = Convert.ToDateTime(rd.Fecha);
             //var fechaf = Convert.ToDateTime(fecha.ToString("yyyy-MM-dd 23:59:59"));
             int[] mes = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             var total = db.PesajeFinal.Where(x => x.Fecha.Value.Year == rd.Fecha.Value.Year).ToList();
 
+
+            var dataMonth = db.PesajeFinal.Where(x => x.Fecha.Value.Month == fecha.Month).ToList();
+            
+            VariablesContador.contadorPesajeMensualF = dataMonth.Count; ;
 
             foreach (var item in mes)
             {
@@ -1114,7 +1118,33 @@ namespace Arena.Controllers{
 
             return Json(objvariables, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult ValidaPesajeMensualF(PesajeFinal rd)
+        {
+            variables objvariables = new variables();
+            DateTime fecha = DateTime.Now;
 
+            var dataMonth = db.PesajeFinal.Where(x => x.Fecha.Value.Month == fecha.Month).ToList();
+            decimal totalMonthF = 0;
+            int i = dataMonth.Count;
+
+            foreach (var item in dataMonth)
+            {
+                totalMonthF += Convert.ToDecimal(item.peso);
+            }
+            
+            if (i > VariablesContador.contadorPesajeMensualF)
+            {
+                VariablesContador.contadorPesajeMensualF = i;
+                var data = dataMonth.OrderByDescending(x => x.Id).FirstOrDefault();
+
+                objvariables.UpdateMensualF = Convert.ToDecimal(data.peso);
+                objvariables.mesF = Convert.ToInt32(fecha.Month - 1);
+                objvariables.totalMonthF = totalMonthF;
+            }
+
+            return Json(objvariables, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult AlmacenamientoFinal(Almacenamiento rd)
         {
@@ -1126,25 +1156,15 @@ namespace Arena.Controllers{
             List<int> lstposicion = new List<int>();
 
             List<string> lstcodigo = new List<string>();
-            List<AlmacenamientoF> datos1 = new List<AlmacenamientoF>();
-           
-
-
+            List<AlmacenamientoF> datos1 = new List<AlmacenamientoF>();        
 
             var total = db.Almacenamiento.Where(x => x.FechaSalida == null).ToList();
-
-
-
-
+            var data = db.Almacenamiento.Where(x => x.FechaEntrada != null).ToList();
             decimal Acomulado = 0;
-
 
             VariablesContador.contadorAlmacenamientoFinal = total.Count;
 
-
-
-
-            foreach (var item in total)
+            foreach (var item in data)
             {
                 if (item.pallet != null)
                 {
@@ -1369,6 +1389,11 @@ namespace Arena.Controllers{
             public List<AlmacenamientoF> lstAlmacenamiento { get; set; }
             public int posicion { get; set; }
             public string codigo { get; set; }
+
+            //valida monthFinal
+            public decimal UpdateMensualF { get; set; }
+            public decimal totalMonthF { get; set; }
+            public int mesF { get; set; }
             //index
             public List<decimal> indexPesaje { get; set; }
             public List<String> indexFechaPesaje { get; set; }

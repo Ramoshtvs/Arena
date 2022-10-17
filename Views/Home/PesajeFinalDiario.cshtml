@@ -266,6 +266,39 @@
 
 
                         Highcharts.chart('GrafPesajeMF', {
+                              chart: {
+                                type: 'column',
+                                 events: {
+                                        load: function () {
+                                            var series = this.series[0];
+                                            setInterval(
+                                                function punto() {
+                                                    var rd = {};
+                                                    rd.Fecha = 0;
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: '@Url.Action("ValidaPesajeMensualF")',
+                                                        data: '{rd: ' + JSON.stringify(rd) + '}',
+                                                        dataType: "json",
+                                                        contentType: "application/json; chartset=uft-8",
+                                                        success: function (Responses) {
+                                                            if (Responses != null) {
+
+                                                                if (Responses.UpdateMensualF > 0) {
+                                                                    var y = Responses.totalMonthF;
+                                                                    var update = Responses.UpdateMensualF;
+                                                                    var y = y + update;
+                                                                     var mes = Responses.mesF;
+
+                                                                    series.data[mes].update(y);
+                                                                }
+                                                            }
+                                                        },
+                                                    });
+                                                }, 15000);
+                                        }
+                                    }
+                            },
                             title: {
                                 text: 'Pesaje Mensual'
                             },
@@ -289,11 +322,11 @@
                                 }
                             },
                             series: [{
-                                type: 'column',
+                              
                                 name: 'KG',
                                 colorByPoint: true,
-                                data: Response.lstPesoMensualF,
-                                showInLegend: false
+                                data: Response.lstPesoMensualF
+                               
                             }]
                         });
 
