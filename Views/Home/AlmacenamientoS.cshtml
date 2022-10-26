@@ -272,14 +272,18 @@
     <script>
         window.onload = chart;
 
+        //obtener todo los datos que tengan la clase seleccionado 
         var lista = document.getElementsByClassName("seleccionado");
 
         var listaPosicion;
         var lstCodigo;
 
         function chart() {
+
+            //colocar el puntero simpre en el componente
             document.getElementById("salida").focus();
 
+            //ocultar todos los elementos de la tabla
             $("#t1").hide(); $("#t2").hide(); $("#t3").hide(); $("#t4").hide(); $("#t5").hide();
             $("#t6").hide(); $("#t7").hide(); $("#t8").hide(); $("#t9").hide(); $("#t10").hide();
             $("#t11").hide(); $("#t12").hide(); $("#t13").hide(); $("#t14").hide(); $("#t15").hide();

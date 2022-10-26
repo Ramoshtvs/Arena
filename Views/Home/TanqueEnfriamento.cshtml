@@ -3,6 +3,8 @@
     ViewBag.Title = "TanqueEnfriamento";
 }
 
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="~/Scripts/Highcharts/highcharts.js"></script>
 <script src="~/Scripts/Highcharts/highcharts-more.js"></script>
 <script src="~/Scripts/Highcharts/solid-gauge.js"></script>
@@ -154,7 +156,24 @@
                         if (nvl > 80) {
                             $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #22a999 20%, #22a999 100%)");
                         }
-
+                        if (nvl >= 100) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Tanque De Enfriamiento Esta En Su Maxima Capacidad',
+                                showConfirmButton: false,
+                                timer: 10000
+                            })
+                        }
+                        if (nvl == 0) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Tanque De Enfriamiento Esta En Su Minima Capacidad', 
+                                showConfirmButton: false,
+                                timer: 10000
+                            })
+                        }
 
                         function makesvg(percentage1, inner_text = "") {
                             var svg = "";

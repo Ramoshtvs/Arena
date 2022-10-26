@@ -22,5 +22,6 @@ namespace Arena.Controllers
         public static int contadortemp { get; set; }
         public static int contadorPesajeMensual { get; set; }
         public static int contadorPesajeMensualF { get; set; }
+        public static int contadorTanqEnfriamiento { get; set; }
     }
 }

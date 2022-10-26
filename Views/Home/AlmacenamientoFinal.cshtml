@@ -29,7 +29,6 @@
                 <canvas id="myChars"></canvas>
             </div>
         </div>
-
     </div>
 
     <div class="col-lg-7">
@@ -119,11 +118,13 @@
                             },
                         });
 
+                        //obtener los datos para llenar tabla
                         var items = Response.lstAlmacenamiento;
 
-
+                        //vaciar tabla
                         $("#tblAlmacenamiento > tbody").empty();
 
+                        //llenar tabla 
                         $.each(items, function (index, value) {
                             $("#tblAlmacenamiento")
                                 .append(

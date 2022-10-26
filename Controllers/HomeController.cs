@@ -49,8 +49,10 @@ namespace Arena.Controllers{
             VariablesContador.contadorInspTGrano = 0;
             VariablesContador.contadorGrafPastel = 0;
             VariablesContador.contadortemp = 0;
+            VariablesContador.contadorTanqEnfriamiento = 0;
+            
 
-            variables objvariables = new variables();
+            variables objvariables = new variables();            
 
             List<decimal> listIndexPeso = new List<decimal>();
             List<string> listIndexFechaPeso = new List<string>();
@@ -72,7 +74,9 @@ namespace Arena.Controllers{
 
             var peso = db.Pesaje.Where(x => x.Fecha.Value >= fechaHprimero && x.Fecha.Value <= fechaHultimo).ToList();
 
-
+            var data = db.TanqueEnfriamento.OrderByDescending(x => x.Id).FirstOrDefault();
+            var cantTanqEnfriamiento = db.TanqueEnfriamento.Count();
+            
             var ultimopeso = peso.OrderByDescending(x => x.Id).FirstOrDefault();
             var Inspeccion = db.InspeccionTamañoGrano.Where(x => x.Fecha.Value.Day >= fechapeso.Day && x.Fecha.Value.Day <= fechapeso.Day).ToList();
 
@@ -82,9 +86,12 @@ namespace Arena.Controllers{
             var total = db.Almacenamiento.Where(x => x.FechaSalida == null).ToList();
             var almacenamiento = db.Almacenamiento_Inicial.OrderByDescending(x => x.Id).FirstOrDefault();
             var totalALmIN = db.Almacenamiento_Inicial.Count();
+
+
             VariablesContador.contadorInspTGrano = dataTG.Count;
             VariablesContador.contadorGrafPastel = total.Count;
             VariablesContador.contadortemp = totalALmIN;
+            VariablesContador.contadorTanqEnfriamiento = cantTanqEnfriamiento;
 
             decimal Acomulado = 0;
 
@@ -127,6 +134,7 @@ namespace Arena.Controllers{
             objvariables.temAlmacenamiento = Convert.ToDecimal(almacenamiento.Temperatura);
             objvariables.Nivel = Convert.ToDecimal(almacenamiento.Nivel);
 
+            objvariables.VarNivelTEnf = Convert.ToDouble(data.Nivel);
             if (ultimopeso != null) { objvariables.VarUltimoP = Convert.ToDecimal(ultimopeso.Peso); }
             if (ultimoTiempo != null) { objvariables.VarUltimoT = Convert.ToDecimal(ultimoTiempo.TiempoCiclo); }
 
@@ -140,7 +148,7 @@ namespace Arena.Controllers{
         public ActionResult ValidarIndex(Pesaje rd)
         {
             variables objvariables = new variables();
-
+            
             DateTime fecha1 = DateTime.Now;
             DateTime fecha = DateTime.Now;
 
@@ -157,10 +165,11 @@ namespace Arena.Controllers{
             int i = total.Count;
 
             var tiempo = db.Triturado.Where(x => x.Fecha.Value >= fechaHprimero && x.Fecha.Value <= fechaHultimo).ToList();
-            int k = tiempo.Count;
-
+            int k = tiempo.Count;            
 
             var totalALmIN = db.Almacenamiento_Inicial.Count();
+
+            var TotalTanqEnfriamiento = db.TanqueEnfriamento.Count();
 
             if (i > VariablesContador.contadorGrafPastel)
             {
@@ -219,6 +228,23 @@ namespace Arena.Controllers{
                 objvariables.horaTriturado = Convert.ToString(Hora);
             }
 
+            if (TotalTanqEnfriamiento >VariablesContador.contadorTanqEnfriamiento)
+            {               
+
+                VariablesContador.contadorTanqEnfriamiento = TotalTanqEnfriamiento;
+                var data = db.TanqueEnfriamento.OrderByDescending(x => x.Id).FirstOrDefault();
+
+                var nivel = Convert.ToDouble(data.Nivel);
+                if (nivel == 0)
+                {
+                    objvariables.VarNivelTEnf = 0.5;
+                }
+                else {
+                    objvariables.VarNivelTEnf = nivel;
+                }
+                
+            }
+            
 
             return Json(objvariables, JsonRequestBehavior.AllowGet);
         }
@@ -1411,6 +1437,7 @@ namespace Arena.Controllers{
             public decimal VarTempNew { get; set; }
             public string VarPieDato { get; set; }
             public decimal VarNivelNew { get; set; }
+            public double VarNivelTEnf { get; set; }
         }
     }
 }

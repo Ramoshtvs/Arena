@@ -2274,8 +2274,8 @@
     <Content Include="fontawesome-free-6.1.2-web\svgs\solid\z.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagen\citys.png" />
     <Content Include="Imagen\Citys1.png" />
-    <Content Include="Imagen\LogoCitys.jpeg" />
     <Content Include="Imagen\pallet.jpg" />
     <Content Include="Imagen\Sin título-1.png" />
     <Content Include="Models\Model.Context.tt">

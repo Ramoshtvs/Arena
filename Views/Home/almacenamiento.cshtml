@@ -3,6 +3,8 @@
     ViewBag.Title = "almacenamiento";
 }
 
+<script src="~/Scripts/jquery-3.6.0.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="~/Scripts/Highcharts/highcharts.js"></script>
 <script src="~/Scripts/Highcharts/highcharts-more.js"></script>
 <script src="~/Scripts/Highcharts/solid-gauge.js"></script>
@@ -69,7 +71,7 @@
                         <h6 style="color:black; text-align-last:center">Temperatura</h6>
                     </div>
                     <figure class="highcharts-figure">
-                        <div id="contentTempuratura" class="chart-container"  style="height:200px; width:auto"></div>
+                        <div id="contentTempuratura" class="chart-container" style="height:200px; width:auto"></div>
                     </figure>
                 </div>
                 <!-- div del progressbar -->
@@ -102,7 +104,7 @@
 
 <script>
 
-    setInterval("chart()", 50000);
+    setInterval("chart()", 5000);
     window.onload = chart;
 
 
@@ -120,6 +122,7 @@
 
                     if (Response != null) {
 
+                        //manera en la cual colocarle un texto a un <h> por el id
                         $("#lblpor").html(Response.Nivel + "%");
                         var costante1 = 20000;
                         var nvl = Response.Nivel;
@@ -132,6 +135,7 @@
                         var promedio = (nvl * constante) / 100;
                         var _nvlTanque = constante - promedio;
 
+                        //forma de llnar el tanque de almacenamiento.
                         if (nvl >= 0 && nvl<= 50) {
                             $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #E74A3B 20%, #E74A3B 100%)");
                         }
@@ -140,6 +144,23 @@
                         }
                         if (nvl > 80) {
                             $(".level").css("background", "-webkit-linear-gradient(top,  #ffffff 0%, #f1f1f1 " + _nvlTanque + "%, #22a999 20%, #22a999 100%)");
+                        }
+                        if (nvl >= 100) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Tanque De Almacenamiento Esta En Su Maxima Capacidad',
+                                showConfirmButton: false,
+                                timer:10000
+                            })
+                        } if (nvl == 0) {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'Tanque De Almacenamiento Esta En Su Minima Capacidad',
+                                showConfirmButton: false,
+                                timer: 10000
+                            })
                         }
 
 

@@ -17,7 +17,7 @@
             <div class="col-lg-8"><h5 id="lbletiqueta">PESAJE MENSUAL</h5></div>
             <div class="col-lg-4">
                 <label class="switch">
-                    <input type="checkbox" id="switch" onclick="toggle()">
+                    <input type="checkbox" id="switch" onclick="cambio()">
                     <span class="slider round"></span>
                 </label>
             </div>
@@ -80,7 +80,7 @@
         chart()
     }
 
-    function toggle() {
+    function cambio() {
         var remember = document.getElementById('switch');
 
         if (remember.checked) {
@@ -98,7 +98,6 @@
             $("#GMensual").hide();
             $("#lbletiqueta").html("PESAJE MENSUAL");
             chart()
-
         }
     }
     function chart() {
@@ -247,9 +246,9 @@
                     }
                 },
             });
-        }
+    }
 
-       function chart1() {
+    function chart1() {
            $("#Diario").hide();
             var rd = {};
          rd.Fecha = "01/01/" + $("#Year").val();

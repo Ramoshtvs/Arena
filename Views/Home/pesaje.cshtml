@@ -86,10 +86,11 @@
         $("#fecha").val(year + "-" + mes + "-" + day);
         chart()
     }
-
+    // metodo para cambiar las graficas segun el swich
     function toggle() {
         var remember = document.getElementById('switch');
 
+        //revisar si esta on o no
         if (remember.checked) {
 
             $("#puntos").hide();
@@ -109,10 +110,11 @@
 
         }
     }
-
- function chart() {
+    //metodo principal
+    function chart() {
      $("#barras").hide();
 
+        //obtener la fecha actual
      var actual = new Date();
      var daia = ("0" + (actual.getDate())).slice(-2);
      var mese = ("0" + (actual.getMonth() + 1)).slice(-2);
@@ -134,6 +136,7 @@
 
                     if (Response != null) {
 
+                        //verificar si la fecha es la actual o no y asi mostrar la grafica correspondiente
                         if (rd.Fecha == fechaActual) {
 
                             Highcharts.chart('Grafpuntos', {
@@ -302,11 +305,15 @@
                 },
            });
     }
-
-
+    //metodo para grafica de barras mensual
     function chart1() {
         $("#puntos").hide();
-            var rd = {};
+
+
+
+        var rd = {};
+
+        //fecha con la cual se hara la consulta
          rd.Fecha = "01/01/" + $("#Year").val();
             $.ajax({
                 type:"POST",

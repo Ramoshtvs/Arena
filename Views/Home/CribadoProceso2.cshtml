@@ -110,7 +110,7 @@
             success: function (Response) {
                 if (Response != null) {
                     $("#lblTamaño").html(Response.VarTGranoCR + ' AFS');
-                    $("#lblReciduo").html(Response.VarResiduoCR + ' %');
+                    $("#lblResiduo").html(Response.VarResiduoCR + ' %');
                     $("#lblFecha").html(Response.VarFechaCR);
                     $("#lblContaminacion").html(Response.VarContaminacionCR+' %');
 
@@ -397,7 +397,7 @@
                             y = Responses.VaraddContaminacionCR;
                         series.addPoint([x, y]);
                         $("#lblTamaño").html(Responses.VarTGranoCR+ ' AFS');
-                        $("#lblReciduo").html(Responses.VaraddResiduoCR+' %');
+                        $("#lblResiduo").html(Responses.VaraddResiduoCR+' %');
                         $("#lblFecha").html(Responses.VarFechaCR);
                         $("#lblContaminacion").html(Responses.VaraddContaminacionCR+' %');
                     }
