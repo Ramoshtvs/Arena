@@ -303,6 +303,14 @@
                             },
                             credits: {
                                 enabled: false
+                            }, plotOptions: {
+                                series: {
+                                    borderWidth: 0,
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '{point.y:.1f} KG'
+                                    }
+                                }
                             },
                             yAxis: {
                                 title: {
@@ -322,7 +330,7 @@
                             },
                             series: [{
                               
-                                name: 'KG',
+                                name: 'Meses',
                                 colorByPoint: true,
                                 data: Response.lstPesoMensualF
                                

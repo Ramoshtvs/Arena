@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 <script src="~/Scripts/jquery-3.6.0.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="~/Scripts/alertSw/sweetalert2@9.js"></script>
 <script src="~/Scripts/Highcharts/highcharts.js"></script>
 <script src="~/Scripts/Highcharts/highcharts-3d.js"></script>
 <script src="~/Scripts/Highcharts/highcharts-more.js"></script>
@@ -27,8 +27,8 @@
             </div>
 
             <div class="card-body">
-                <figure class="highcharts-figure">
-                    <div id="pesa" style="height:220px; width:auto;"></div>
+                <figure class="highcharts-figure"style="margin: 0">
+                    <div id="pesa" style="width:auto; height:200px"></div>
                 </figure>
             </div>
         </div>
@@ -36,8 +36,8 @@
         <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
 
             <div class="card-body">
-                <figure class="highcharts-figure">
-                    <div id="GrafTG" style="height:261px; width:auto;"></div>
+                <figure class="highcharts-figure" style="margin: 0">
+                    <div id="GrafTG" style="height:250px; width:auto;"></div>
                 </figure>
             </div>
 
@@ -46,7 +46,7 @@
         <!--grafica temperatura-->
         <div class="card col-lg-4 " style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
             <div class="card-body">
-                <figure class="highcharts-figure">
+                <figure class="highcharts-figure" style="margin: 0">
                     <div id="contentTempuratura" class="chart-container" style="height:261px; width:auto"></div>
                 </figure>
             </div>
@@ -62,8 +62,8 @@
                 <h6 id="UltimoT"></h6>
             </div>
 
-            <div class="card-body">
-                <div id="GrafTriturado" style="height:271px; width:auto"> </div>
+            <div class="card-body" style="margin: 0">
+                <div id="GrafTriturado" style="height:250px; width:auto"> </div>
             </div>
         </div>
 
@@ -75,11 +75,10 @@
             </div>
 
             <div class="card-body">
-                <figure class="highcharts-figure">
-                    <div id="Grafpie" style="height:230px; width:auto;"></div>
+                <figure class="highcharts-figure" style="margin: 0">
+                    <div id="Grafpie" style="height:250px; width:auto;"></div>
                 </figure>
             </div>
-
 
         </div>
 
@@ -90,8 +89,8 @@
                 <h5 style="color:black; text-align-last:center" id="totalT"></h5>
             </div>
 
-            <div class="card-body" style=" text-align: -webkit-center;">
-                <div style="height:271px; width:200px;"  onclick="">
+            <div class="card-body" style=" text-align: -webkit-center;" style="margin: 0">
+                <div style="height:271px; width:220px;"  onclick="">
                     <div style="padding:0; ">
                         <div id="nivel" class="level" style="margin:0;">
                             <img src="~/Imagen/Sin título-1.png" alt="frase mamalona" style="height:auto; width:100%;" />
@@ -278,12 +277,7 @@
                          Highcharts.chart('GrafTriturado', {
                             chart: {
                                 type: 'area',
-                                zoomType: 'x',
-                                panning: true,
-                                panKey: 'shift',
-                                scrollablePlotArea: {
-                                    minWidth: 600
-                                 },
+                                
                                 events: {
                                         load: function () {
                                             series2 = this.series[0];
@@ -359,7 +353,7 @@
                                 type: 'pie',
                                 options3d: {
                                     enabled: true,
-                                    alpha: 45
+                                    alpha: 40
                                 },
                                 events: {
                                     click: function () {
@@ -380,7 +374,7 @@
                             plotOptions: {
                                 pie: {
                                     innerSize: 100,
-                                    depth: 45
+                                    depth: 40
                                 }
                             },
                             series: [{
@@ -620,7 +614,7 @@
 
                     //Alerta Del Tanque De Enfriamiento
                     var nvlTEnf = Responses.VarNivelTEnf;
-                    if (nvlTEnf > 0) {
+                    if (nvlTEnf >= 0) {
 
                         if (nvlTEnf >= 100) {
                             Swal.fire({

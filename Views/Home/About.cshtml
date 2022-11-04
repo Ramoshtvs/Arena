@@ -2,402 +2,352 @@
     ViewBag.Title = "About";
 }
 
+<script src="~/Scripts/Highcharts/highcharts.js"></script>
+<script src="~/Scripts/Highcharts/annotations.js"></script>
+<script src="~/Scripts/Highcharts/exporting.js"></script>
+<script src="~/Scripts/Highcharts/accessibility.js"></script>
 
+<!--estilo card icono arriba-->
+@*<link href="~/Content/style cardinf/material-dashboard.css" rel="stylesheet" />*@
 
-<script src="~/Scripts/jquery-3.6.0.js"></script>
+<link href="~/fontawesome-free-6.1.2-web/css/all.css" rel="stylesheet" />
+<!--estilo card icono dentro-->
+<link href="~/Content/style cardinf/sb-admin.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
 
+<div class="row responsive" style="padding-top:70px;">
 
-<div class="row responsive" style="padding-top:51px">
-    <div class="row">
-        <div class="col-lg-7" style="padding-top:5px">
-            <h4 style="font-size: 35px; text-align: end; font-family: 'Lucida Bright'">Salida De Almacenamiento</h4>
+    <div class="col-lg-3 col-sm-6 mb-3">
+            <div class="card text-white bg-success o-hidden h-100">
+                <a class="card-header text-white clearfix small z-1" href="#">
+                    <span class="float-left"> Tiempo Ciclo:</span>
+                    <span class="float-right">
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                </a>
+                <div class="card-body">
+                    <div class="card-body-icon">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <div class="mr-5">
+                        <h5 id="lblTiempo"> </h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    <div class="col-lg-2"></div>
+
+    @*<div class="card col-lg-3">
+        <div class="card-header p-1 pt-2 bg-transparent">
+            <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                <i class="far fa-clock"></i>
+            </div>
+            <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize ">Tiempo Clico</p>
+                <h4 class="mb-0 ">+91</h4>
+            </div>
+        </div>
+        <hr class="horizontal my-0 dark">
+        <div class="card-footer p-1">
+            <p class="mb-0 ">Ultimo Dato</p>
+        </div>
+    </div>*@
+
+    <div class="col-lg-1"></div>
+
+    @*<div class="card col-lg-3">
+        <div class="card-header p-3 pt-2 bg-transparent">
+            <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize ">Tiempo Clico</p>
+                <h4 class="mb-0 ">+91</h4>
+            </div>
         </div>
 
-        <div class="col-lg-4" style="padding-top:20px; text-align:initial">
-            <input type="text" id="salida" onchange="checkt()" style="width: 250px" />
+        <hr class="horizontal my-0 dark">
+        <div class="card-footer p-3">
+            <p class="mb-0 ">Ultimo Dato</p>
         </div>
+    </div>*@
+
+
+</div>
+
+<div class="row responsive" style="padding: 10px;">
+    <div class=" card col-md-3" style="width: auto; height: auto; word-wrap: break-word;">
+
+        <div class="card-header">
+            <a><i class="fa-solid fa-laptop-code"></i> DATOS</a>
+        </div>
+        <div class="card-body">
+            <h4 style="color: black"> Tamaño Del Grano:</h4>
+            <h5 id="lblTamaño" style="color:black"> </h5>
+            <br />
+            <h4 style="color: black"> Tiempo Ciclo:</h4>
+            <h5 id="lblTiempo" style="color: black"> </h5>
+            <br />
+            <h4 style="color:black"> Contaminación:</h4>
+            <h5 id="lblContaminacion" style="color: black"> </h5>
+            <br />
+            <h4 style="color: black"> Hora Ciclo:</h4>
+            <h3 id="lblHora" style="color: black; font-size: medium"> </h3>
+
+        </div>
+
     </div>
 
-    <div class="row">
-        <div class="col-md-1">
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="col-lg-8" style="text-align: end;">
+                <h4 style="font-size: 35px; text-align: center; font-family: 'Lucida Bright'">Triturado</h4>
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2" style="padding-top:5px">
+                <input id="fecha" type="date" onchange="chart()" style="font-size: 16px;  width:200px; height:40px; text-transform: uppercase; font-weight:bold;" />
+            </div>
         </div>
-        <div class="col-md-10" style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;">
-
-            <table id="tblAlmacenamiento" class="table table-striped">
-                <thead>
-                    <tr style="text-align:center">
-                        <th></th>
-                        <th>A</th>
-                        <th>B</th>
-                        <th>C</th>
-                        <th>E</th>
-                        <th>F</th>
-                    </tr>
-
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <label id="t1">
-                                <input type="checkbox" class="seleccionado" value="l1">
-
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A1"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t6">
-                                <input type="checkbox" class="seleccionado" value="l6">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A6"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t11">
-                                <input type="checkbox" class="seleccionado" value="l11">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A11"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t16">
-                                <input type="checkbox" class="seleccionado" value="l16">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A16"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t21">
-                                <input type="checkbox" class="seleccionado" value="l21">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A21"></label>
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            <label id="t2">
-                                <input type="checkbox" class="seleccionado" value="l2">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A2"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t7">
-                                <input type="checkbox" class="seleccionado" value="l7">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A7"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t12">
-                                <input type="checkbox" class="seleccionado" value="l12">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A12"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t17">
-                                <input type="checkbox" class="seleccionado" value="l17">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A17"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t22">
-                                <input type="checkbox" class="seleccionado" value="l22">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A22">A127-09-20220001</label>
-                            </label>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>
-                            <label id="t3">
-                                <input type="checkbox" class="seleccionado" value="l3">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A3"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t8">
-                                <input type="checkbox" class="seleccionado" value="l8">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A8"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t13">
-                                <input type="checkbox" class="seleccionado" value="l13">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A13"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t18">
-                                <input type="checkbox" class="seleccionado" value="l18">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A18"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t23">
-                                <input type="checkbox" class="seleccionado" value="l23">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A23"></label>
-                            </label>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>
-                            <label id="t4">
-                                <input type="checkbox" class="seleccionado" value="l4">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A4"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t9">
-                                <input type="checkbox" class="seleccionado" value="l9">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A9"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t14">
-                                <input type="checkbox" class="seleccionado" value="l14">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A14"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t19">
-                                <input type="checkbox" class="seleccionado" value="l19">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A19"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t24">
-                                <input type="checkbox" class="seleccionado" value="l24">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A24"></label>
-                            </label>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>
-                            <label id="t5">
-                                <input type="checkbox" class="seleccionado" value="l5">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A5"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t10">
-                                <input type="checkbox" class="seleccionado" value="l10">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A10"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t15">
-                                <input type="checkbox" class="seleccionado" value="l15">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A15"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t20">
-                                <input type="checkbox" class="seleccionado" value="l20">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A20"></label>
-                            </label>
-                        </td>
-                        <td>
-                            <label id="t25">
-                                <input type="checkbox" class="seleccionado" value="l25">
-                                <img src="~/Imagen/pallet.jpg" alt="texto conmovedor" style="width:100px; height:60px" />
-                                <br />
-                                <label id="A25"></label>
-                            </label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row" style="padding-top:30px"></div>
+        <div class="row">
+            <div id="GrafTriturado"> </div>
         </div>
-        <div class="col-md-1">
-        </div>
+
+
+
     </div>
+
 </div>
 
 
 
-@section scripts{
-    <script>
-        window.onload = chart;
+<script>
 
-        var lista = document.getElementsByClassName("seleccionado");
+    window.onload = time;
+    function time() {
+        var now = new Date();
+        var day = ("0" + (now.getDate())).slice(-2);
+        var mes = ("0" + (now.getMonth() + 1)).slice(-2);
+        var year = now.getFullYear();
+        $("#fecha").val(year + "-" + mes + "-" + day);
+        chart()
+    }
 
-        var lstPosicion;
-        var lstCodigo;
+    function chart() {
 
-        function chart() {
-            document.getElementById("salida").focus();
+        var actual = new Date();
+        var daia = ("0" + (actual.getDate())).slice(-2);
+        var mese = ("0" + (actual.getMonth() + 1)).slice(-2);
+        var anio = actual.getFullYear();
+        var fechaActual = anio + "-" + mese + "-" + daia;
 
-            $("#t1").hide(); $("#t2").hide(); $("#t3").hide(); $("#t4").hide(); $("#t5").hide();
-            $("#t6").hide(); $("#t7").hide(); $("#t8").hide(); $("#t9").hide(); $("#t10").hide();
-            $("#t11").hide(); $("#t12").hide(); $("#t13").hide(); $("#t14").hide(); $("#t15").hide();
-            $("#t16").hide(); $("#t17").hide(); $("#t18").hide(); $("#t19").hide(); $("#t20").hide();
-            $("#t21").hide(); $("#t22").hide(); $("#t23").hide(); $("#t24").hide(); $("#t25").hide();
+        var rd = {};
+        rd.Fecha = $("#fecha").val();
 
-
-
-
-            var rd = {};
-            rd.Fecha = 0;
-
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("AlmacenamientoFinal")',
-                data: '{rd: ' + JSON.stringify(rd) + '}',
-                dataType: "json",
-                contentType: "application/json; chartset=uft-8",
-                success: function (Response) {
-
-                    if (Response != null) {
-
-                        lstPosicion = Response.lstposicion;
-                        lstCodigo = Response.lstCodigo;
-                        //$("#lblTamaño").html("Total: " + Response.VarAlmacenamientoF + " KG");
-
-                        for (var i = 0; i < lstPosicion.length; i++) {
-                            $("#A" + lstPosicion[i]+"").html(lstCodigo[i]);
-                            $("#t" + lstPosicion[i]+"").show();
-                        }
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("triturado")',
+            data: '{rd: ' + JSON.stringify(rd) + '}',
+            dataType: "json",
+            contentType: "application/json; chartset=uft-8",
+            success: function (Response) {
+                if (Response != null) {
+                    $("#lblTiempo").html(Response.tiempoTriturado + ' Hrs');
+                    $("#lblHora").html(Response.horaTriturado);
+                    $("#lblTamaño").html(Response.granoT + ' AFS');
+                    $("#lblContaminacion").html(Response.contaminacionT + ' %');
 
 
-                    } else {
-                        alert('NO ENTRO');
+                    if (rd.Fecha == fechaActual) {
+                        Highcharts.chart('GrafTriturado', {
+                            chart: {
+                                type: 'area',
+                                zoomType: 'x',
+                                panning: true,
+                                panKey: 'shift',
+                                scrollablePlotArea: {
+                                    minWidth: 600
+                                },
+                                events: {
+                                    load: function () {
+                                        var series = this.series[0];
+                                        setInterval(
+                                            function punto() {
+                                                var rd = {};
+                                                rd.Fecha = $("#fecha").val();
+
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: '@Url.Action("ValidarPuntoTiempo")',
+                                                    data: '{rd: ' + JSON.stringify(rd) + '}',
+                                                    dataType: "json",
+                                                    contentType: "application/json; chartset=uft-8",
+                                                    success: function (Responses) {
+                                                        if (Responses != null) {
+                                                            if (Responses.VarUltimoTriturado > 0) {
+                                                                var x = Responses.VarFechaUltimoT,
+                                                                    y = Responses.VarUltimoTriturado;
+                                                                series.addPoint([x, y]);
+
+                                                                $("#lblTiempo").html(Responses.VarUltimoTriturado + ' Hrs');
+                                                                $("#lblHora").html(Responses.horaTriturado);
+                                                                $("#lblTamaño").html(Responses.granoT + ' AFS');
+                                                                $("#lblContaminacion").html(Responses.contaminacionT + ' %');
+                                                            }
+                                                        }
+                                                    },
+                                                });
+                                            }, 1000);
+                                    }
+                                }
+                            },
+                            title: {
+                                text: 'Tiempo Triturado'
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            annotations: [{
+                                draggable: '',
+                                labelOptions: {
+                                    backgroundColor: 'rgba(255,255,255,0.5)',
+                                    verticalAlign: 'top',
+                                }
+                            }],
+                            xAxis: {
+                                type: 'category',
+                                labels: {
+                                    rotation: 40,
+                                    format: '{value}',
+                                    style: { color: 'Black' }
+                                },
+                                title: {
+                                    text: 'Tiempo'
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: null
+                                },
+                                labels: {
+                                    format: '{value} m'
+                                }
+                            },
+                            tooltip: {
+                                pointFormat: 'Tiempo Ciclo: {point.y} Hrs',
+                                shared: true
+                            },
+                            legend: {
+                                enabled: false
+                            },
+                            series: [{
+                                name: 'Tiempo Ciclo',
+                                data: (function () {
+                                    var data = [],
+                                        dat = Response.tiempoCiclo,
+                                        fec = Response.fechaTriturado;
+
+                                    for (var i = 0; i < dat.length; i++) {
+                                        data.push({
+                                            name: fec[i],
+                                            y: dat[i]
+                                        });
+                                    }
+                                    return data;
+                                }()),
+                                lineColor: Highcharts.getOptions().colors[1],
+                                color: Highcharts.getOptions().colors[2],
+                                fillOpacity: 0.5,
+                            }]
+                        });
+                    }
+                    else {
+                        Highcharts.chart('GrafTriturado', {
+                                chart: {
+                                    type: 'area',
+                                    zoomType: 'x',
+                                    panning: true,
+                                    panKey: 'shift',
+                                    scrollablePlotArea: {
+                                        minWidth: 600
+                                    }
+                                },
+                                title: {
+                                    text: 'Tiempo Triturado'
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                annotations: [{
+                                    draggable: '',
+                                    labelOptions: {
+                                        backgroundColor: 'rgba(255,255,255,0.5)',
+                                        verticalAlign: 'top',
+                                        y: 15
+                                    },
+                                }],
+                                xAxis: {
+                                    categories: Response.fechaTrituradoL,
+                                    labels: {
+                                        rotation: 40,
+                                        format: '{value}',
+                                        style: { color: 'Black' }
+                                    },
+
+                                    title: {
+                                        text: 'Tiempo'
+                                    }
+                                },
+                                yAxis: {
+                                    startOnTick: true,
+                                    endOnTick: false,
+                                    maxPadding: 0.35,
+                                    title: {
+                                        text: null
+                                    },
+                                    labels: {
+                                        format: '{value} m'
+                                    },
+                                    accessibility: {
+                                        description: 'Elevation',
+                                        rangeDescription: 'Range: 0 to 1,553 meters'
+                                    }
+                                },
+                                tooltip: {
+                                    headerFormat: 'Fecha: {point.x}<br>',
+                                    pointFormat: 'Tiempo Ciclo: {point.y} Hrs',
+                                    shared: true
+                                },
+                                legend: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    data: Response.tiempoCiclo,
+                                    lineColor: Highcharts.getOptions().colors[1],
+                                    color: Highcharts.getOptions().colors[2],
+                                    fillOpacity: 0.5,
+                                    name: 'Elevation',
+                                    marker: {
+                                        enabled: false
+                                    },
+                                    threshold: null
+                                }]
+
+                        });
                     }
 
+                } else {
+                    alert('NULO');
                 }
+            },
+        });
+    }
 
-            });
-        }
-
-        function checkt() {
-            var listas = [];
-            var LstTs = [];
-            
-            var _valor;
-
-            var txtSalida = document.getElementById("salida").value;
-
-            if (txtSalida != null) {
-
-                for (var i = 0; i < lista.length; i++) {
-
-                    var _valorInput = lista[i].value;
-                     _valor = _valorInput.substring(1, 3);
-
-                    var _valorCodigo = document.getElementById("A" + _valor + "").textContent;
-
-                    if (_valorCodigo == txtSalida) {
-                        listas[0] = txtSalida;
-                        listas[1] = _valor;
-
-                        LstTs[i] = "t" + _valor + "";
-                    }
-                }
+</script>
 
 
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("ActualizarTabla")',
-                data: JSON.stringify(listas),
-                dataType: "json",
-                contentType: "application/json; chartset=uft-8",
-                success: function (Response) {
-                    if (Response != null) {
-                        //if (true) {
 
-                        //} else {
-                        //    alert('Codigo No Valido');
-                        //}
-                        for (var i = 0; i < LstTs.length; i++) {
-                           $("#" + LstTs[i] + "").hide();
-                           $("#salida").val("");
-                       }
 
-                    } else {
-                        alert('NO ENTRO');
-                    }
-                },
-            });
-         }
-        }
-
-        setInterval(function () {
-            pallet()
-        }, 1000);
-
-        function pallet() {
-
-            var rd = {};
-            rd.Fecha = 0;
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("AlmacenamientoS")',
-                data: '{rd: ' + JSON.stringify(rd) + '}',
-                dataType: "json",
-                contentType: "application/json; chartset=uft-8",
-                success: function (Responses) {
-                    if (Responses != null) {
-
-                        var listPos = Responses.posicion;
-                        var listCod = Responses.codigo;
-                        $("#A" + listPos + "").html(listCod);
-                        $("#t" + listPos + "").show();
-
-                    }
-                },
-            });
-        }
-    </script>
-}
 

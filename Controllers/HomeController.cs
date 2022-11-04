@@ -113,7 +113,8 @@ namespace Arena.Controllers{
             }
             foreach (var item in total)
             {
-                lstIndexpallet.Add(Convert.ToString("Pallet" + item.pallet + "-" + item.Peso + " KG"));
+                var real = Convert.ToInt32(item.Peso);
+                lstIndexpallet.Add(Convert.ToString("p" + item.pallet + "-" + real + "Kg"));
                 lstIndexAlmacenamientoF.Add(Convert.ToDecimal(item.Peso));
                 Acomulado += Convert.ToDecimal(item.Peso);
             }
@@ -178,7 +179,9 @@ namespace Arena.Controllers{
 
                 foreach (var item in total)
                 {
-                    objvariables.VarPieDato = Convert.ToString("Pallet" + item.pallet + "-" + item.Peso + " KG");
+                    var real = Convert.ToInt32(item.Peso);
+                    objvariables.VarPieDato = Convert.ToString("p" + item.pallet+"-"+real+"Kg");
+                   
                     objvariables.VarPeiPeso = Convert.ToDecimal(item.Peso);
 
                 }

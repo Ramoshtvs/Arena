@@ -3,6 +3,7 @@
     ViewBag.Title = "triturado";
 }
 
+
 <script src="~/Scripts/Highcharts/highcharts.js"></script>
 <script src="~/Scripts/Highcharts/annotations.js"></script>
 <script src="~/Scripts/Highcharts/exporting.js"></script>
@@ -99,7 +100,7 @@
                         $("#lblContaminacion").html(Response.contaminacionT +' %');
 
                         if (rd.Fecha == fechaActual) {
-                             Highcharts.chart('GrafTriturado', {
+                            Highcharts.chart('GrafTriturado', {
                                 chart: {
                                     type: 'area',
                                     zoomType: 'x',
@@ -109,43 +110,36 @@
                                         minWidth: 600
                                     },
                                     events: {
-                                            load: function () {
-                                                var series = this.series[0];
-                                                setInterval(
-                                                    function punto() {
-                                                        var rd = {};
-                                                        rd.Fecha = $("#fecha").val();
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            url: '@Url.Action("ValidarPuntoTiempo")',
-                                                            data: '{rd: ' + JSON.stringify(rd) + '}',
-                                                            dataType: "json",
-                                                            contentType: "application/json; chartset=uft-8",
-                                                            success: function (Responses) {
-                                                                if (Responses != null) {
-                                                                    if (Responses.VarUltimoTriturado > 0) {
+                                        load: function () {
+                                            var series = this.series[0];
+                                            setInterval(
+                                                function punto() {
+                                                    var rd = {};
+                                                    rd.Fecha = $("#fecha").val();
 
-                                                                        var x = Responses.VarFechaUltimoT,
-                                                                            y = Responses.VarUltimoTriturado;
-
-                                                                        series.addPoint([x, y]);
-
-                                                                        $("#lblTiempo").html(Responses.VarUltimoTriturado+ ' Hrs');
-                                                                        $("#lblHora").html(Responses.horaTriturado);
-                                                                        $("#lblTamaño").html(Responses.granoT+' AFS');
-                                                                        $("#lblContaminacion").html(Responses.contaminacionT+' %');
-
-
-
-
-                                                                    }
-                                                                }
-                                                            },
-                                                        });
-                                                    }, 1000);
-                                            }
-                                        }
-
+                                                    $.ajax({
+                                                         type: "POST",
+                                                         url: '@Url.Action("ValidarPuntoTiempo")',
+                                                         data: '{rd: ' + JSON.stringify(rd) + '}',
+                                                         dataType: "json",
+                                                         contentType: "application/json; chartset=uft-8",
+                                                         success: function (Responses) {
+                                                             if (Responses != null) {
+                                                                 if (Responses.VarUltimoTriturado > 0) {
+                                                                     var x = Responses.VarFechaUltimoT,
+                                                                         y = Responses.VarUltimoTriturado;
+                                                                     series.addPoint([x, y]);
+                                                                     $("#lblTiempo").html(Responses.VarUltimoTriturado + ' Hrs');
+                                                                     $("#lblHora").html(Responses.horaTriturado);
+                                                                     $("#lblTamaño").html(Responses.granoT + ' AFS');
+                                                                     $("#lblContaminacion").html(Responses.contaminacionT + ' %');
+                                                                 }
+                                                             }
+                                                         },
+                                                     });
+                                                 }, 1000);
+                                         }
+                                     }
                                  },
                                  title: {
                                 text: 'Tiempo Triturado'
